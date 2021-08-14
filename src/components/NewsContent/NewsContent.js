@@ -5,7 +5,6 @@ const NewsContents = ({ loadMore, setLoadMore, newsArray, newsResults, loadMoreB
     const handleOnClick = () => {
         setLoadMore(loadMore + 10);
     }
-    const utmSource = 'utm_source=newsdb.in';
     return (
         <Container maxWidth="md">
             <div className="newsContent">

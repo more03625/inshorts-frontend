@@ -25,9 +25,7 @@ const NewsCard = ({ newsItem }) => {
                         Read more at <a href={`${newsItem.url}${process.env.REACT_APP_UTM_SOURCE}`} rel="noreferrer" target="_blank">
                             <b>{newsItem.source.name}</b>
                         </a>
-
                     </span>
-
                 </div>
             </div>
         </div>
