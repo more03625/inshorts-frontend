@@ -2,7 +2,7 @@ const categories = [
     "business",
     "entertainment",
     "general",
-    "helth",
+    "health",
     "science",
     "sports",
     "technology"

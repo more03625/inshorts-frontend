@@ -15,8 +15,8 @@ function App() {
   const newsApi = async () => {
     setLoadMoreBtn('Loading...');
     try {
-      const result = await Axios.get(`https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&category=${category}&pageSize=${loadMore}`);
-
+      const result = await Axios.get(`${process.env.REACT_APP_DEV_API_URL}/api/getPosts?category=${category}`);
+      console.log(result)
       setNewsArray(result.data.articles);
       setNewsResults(result.data.totalResults);
 
