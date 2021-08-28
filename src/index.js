@@ -2,7 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+
+
+
+import '../src/assets/vendor/simplebar/dist/simplebar.min.css';
+import '../src/assets/vendor/tiny-slider/dist/tiny-slider.css';
+import '../src/assets/vendor/lightgallery.js/dist/css/lightgallery.min.css';
+import '../src/assets/css/theme.min.css'
+import '../src/assets/css/custom.css';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -11,7 +19,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
