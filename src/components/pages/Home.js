@@ -13,6 +13,7 @@ const Home = () => {
     const [shorts, setShorts] = useState([]);
     const [page, setPage] = useState(1)
     const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
 
     const getShorts = async (page) => {
         setLoading(true);
@@ -22,23 +23,21 @@ const Home = () => {
         if (result.data.error === true) {
             console.log('there are some errors!')
         } else {
-            setShorts([...shorts, ...result.data.data]);
-            setLoading(false);
+            result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data]); setLoading(false);
         }
     }
     useEffect(() => {
         getShorts(page)
     }, [page]);
 
-    const scrollToEnd = () => {
-        setPage(page + 1);
-    }
-    window.onscroll = function () {
-        console.log("window.pageYOffset + window.innerHeight ===> ", window.pageYOffset + window.innerHeight, "document.documentElement.scrollHeight ===> ", document.documentElement.scrollHeight)
-        if (window.pageYOffset + window.innerHeight >= document.documentElement.scrollHeight) {
-            scrollToEnd();
+    if (hasMore !== false) {
+        window.onscroll = function () {
+            if (window.pageYOffset + window.innerHeight >= (document.documentElement.scrollHeight - 300)) {
+                setPage(page + 1);
+            }
         }
     }
+
     return (
         <>
             <Header />
@@ -61,6 +60,13 @@ const Home = () => {
                                         <div class="spinner-border" style={{ width: "3rem", height: "3rem" }} ></div>
                                     </div>
                                 ) : ('')
+                            }
+                            {
+                                hasMore === false ?
+                                    <div class="row text-center justify-content-center mb-2">
+                                        <p>You consumed everything!</p>
+                                    </div>
+                                    : ''
                             }
                         </div>
                         <Sidebar />
