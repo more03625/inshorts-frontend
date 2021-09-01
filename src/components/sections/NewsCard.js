@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-const NewsCard = () => {
+const NewsCard = ({ shortsData }) => {
+    console.log(shortsData)
     return (
         <>
             <article className="masonry-grid-item">
@@ -21,15 +22,14 @@ const NewsCard = () => {
                     <div className="card-body">
                         <h2 className="h6 blog-entry-title">
                             <a href="blog-single-sidebar.html">
-                                We Launched Regular Drone Delivery in California. Watch
-                                Demo Video
+                                {shortsData.title}
                             </a>
                         </h2>
                         <p className="news-additional-info">Shorts by {" "}
                             <span><Link className="me-2 mb-2" to="/author/rahulmore">Rahul More</Link>3 months ago</span>
                         </p>
                         <p className="fs-sm">
-                            Despite thousands of moon pitcures been taken as of yet, a 16-year-old boy, Prathamesh Jaju, who lives in Pune, manages to capture the clearest pic of Moon. He shared it on his Instagram account where he received 8K+ likes and over 300 comments. The pic has gone viral and is been appreciated by famous public figures.
+                            {shortsData.description}
                         </p>
                         <p className="news-additional-info">Read More at {" "}
                             <span>

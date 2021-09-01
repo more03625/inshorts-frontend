@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../layouts/Header";
 import Sidebar from "../layouts/Sidebar";
 import Footer from "../layouts/Footer";
-import Featured from "../sections/Featured";
+import Featured from "../sections/FeaturedCard";
 import Breadcrumb from "../layouts/Breadcrumb";
 import NewsCard from "../sections/NewsCard";
 import '../../assets/css/custom.css'
