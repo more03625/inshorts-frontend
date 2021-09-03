@@ -7,36 +7,30 @@ import Breadcrumb from "../layouts/Breadcrumb";
 import NewsCard from "../sections/NewsCard";
 import { Host, Endpoints } from "../../helpers/comman_helper";
 import axios from "axios";
-
+import Loading from "../sections/Loading";
 const Home = () => {
 
     const [shorts, setShorts] = useState([]);
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [size, setSize] = useState(2);
 
     const getShorts = async (page) => {
-        setLoading(true);
-        const url = Host + Endpoints.getNews + `?page=${page}&size=2`;
-        const result = await axios.get(url);
-        console.log(result.data);
-        if (result.data.error === true) {
-            console.log('there are some errors!')
-        } else {
-            result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data]); setLoading(false);
-        }
-    }
-    useEffect(() => {
-        getShorts(page)
-    }, [page]);
-
-    if (hasMore !== false) {
-        window.onscroll = function () {
-            if (window.pageYOffset + window.innerHeight >= (document.documentElement.scrollHeight - 300)) {
-                setPage(page + 1);
+        if (hasMore === true) {
+            setLoading(true);
+            const url = Host + Endpoints.getNews + `?page=${page}&size=${size}`;
+            const result = await axios.get(url);
+            if (result.data.error === true) {
+                console.log('there are some errors!')
+            } else {
+                result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data]); setLoading(false);
             }
         }
     }
+    useEffect(() => {
+        getShorts(page, size);
+    }, [page]);
 
     return (
         <>
@@ -51,23 +45,10 @@ const Home = () => {
                         <div className="col-lg-6">
                             {
                                 shorts.map((shortsData, index) => (
-                                    <NewsCard shortsData={shortsData} />
+                                    <NewsCard key={index} shortsData={shortsData} />
                                 ))
                             }
-                            {
-                                loading === true ? (
-                                    <div class="row justify-content-center mb-2">
-                                        <div class="spinner-border" style={{ width: "3rem", height: "3rem" }} ></div>
-                                    </div>
-                                ) : ('')
-                            }
-                            {
-                                hasMore === false ?
-                                    <div class="row text-center justify-content-center mb-2">
-                                        <p>You consumed everything!</p>
-                                    </div>
-                                    : ''
-                            }
+                            <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />
                         </div>
                         <Sidebar />
                     </div>

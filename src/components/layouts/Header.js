@@ -79,10 +79,10 @@ const Header = () => {
                         <div className="navbar navbar-expand-lg navbar-light">
                             <div className="container">
                                 <Link className="navbar-brand d-none d-sm-block flex-shrink-0" to="/">
-                                    <img src="/assets/images/news-db-pc-light-logo.png" width="142" alt="NewsDB" />
+                                    <img src="../../../assets/images/logo/news-db-pc-light-logo.png" width="142" alt="NewsDB" />
                                 </Link>
                                 <a className="navbar-brand d-sm-none flex-shrink-0 me-2" to="/">
-                                    <img src="img/logo-icon.png" width="74" alt="NewsDB" /></a>
+                                    <img src="../../../assets/images/logo/news-db-mobile-light-logo.png" width="74" alt="NewsDB" /></a>
                                 <div className="input-group d-none d-lg-flex mx-4">
                                     <input className="form-control rounded-end pe-5" type="text" placeholder="Search for products" /><i className="ci-search position-absolute top-50 end-0 translate-middle-y text-muted fs-base me-3"></i>
                                 </div>
@@ -189,18 +189,12 @@ const Header = () => {
                                                         <div className="widget widget-links mb-4">
                                                             <h6 className="fs-base mb-3">Shop layouts</h6>
                                                             <ul className="widget-list">
-                                                                <li className="widget-list-item"><a className="widget-list-link" href="shop-grid-ls.html">Shop Grid - Left Sidebar</a></li>
-                                                                <li className="widget-list-item"><a className="widget-list-link" href="shop-grid-rs.html">Shop Grid - Right Sidebar</a></li>
-                                                                <li className="widget-list-item"><a className="widget-list-link" href="shop-grid-ft.html">Shop Grid - Filters on Top</a></li>
-                                                                <li className="widget-list-item"><a className="widget-list-link" href="shop-list-ls.html">Shop List - Left Sidebar</a></li>
-                                                                <li className="widget-list-item"><a className="widget-list-link" href="shop-list-rs.html">Shop List - Right Sidebar</a></li>
-                                                                <li className="widget-list-item"><a className="widget-list-link" href="shop-list-ft.html">Shop List - Filters on Top</a></li>
+                                                                <li className="widget-list-item">
+                                                                <Link className="widget-list-link" to={'#'}>Informational</Link>
+                                                                </li>
                                                             </ul>
                                                         </div>
-
                                                     </div>
-
-
                                                 </div>
                                             </div>
                                         </li>

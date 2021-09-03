@@ -1,4 +1,4 @@
-const Breadcrumb = () => {
+const Breadcrumb = ({page, title}) => {
     return (
         <div className="bg-secondary py-4">
             <div className="container d-lg-flex justify-content-between py-2 py-lg-3">
@@ -11,19 +11,19 @@ const Breadcrumb = () => {
                                 </a>
                             </li>
                             <li className="breadcrumb-item text-nowrap">
-                                <a href="#">Blog</a>
+                                <a href="#">{page}</a>
                             </li>
                             <li
                                 className="breadcrumb-item text-nowrap active"
                                 aria-current="page"
                             >
-                                Grid with sidebar
+                                {title}
                             </li>
                         </ol>
                     </nav>
                 </div>
                 <div className="order-lg-1 pe-lg-4 text-center text-lg-start">
-                    <h1 className="h3 mb-0">Blog grid with sidebar</h1>
+                  
                 </div>
             </div>
         </div>

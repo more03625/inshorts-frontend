@@ -1,36 +1,62 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Header from "../layouts/Header";
 import Sidebar from "../layouts/Sidebar";
 import Footer from "../layouts/Footer";
-import Featured from "../sections/FeaturedCard";
 import Breadcrumb from "../layouts/Breadcrumb";
 import NewsCard from "../sections/NewsCard";
-import '../../assets/css/custom.css'
 import { useParams } from "react-router-dom";
 import AuthorCard from "../sections/AuthorCard";
+import Loading from "../sections/Loading";
+import axios from "axios";
+import { Host, Endpoints } from "../../helpers/comman_helper";
+import Notfound from "./Notfound";
 const Read = () => {
     const { slug, newsID } = useParams();
-    console.log(slug)
-    console.log(newsID)
+
+    const [page, setPage] = useState(1);
+    const [size, setSize] = useState(2);
+    const [shorts, setShorts] = useState();
+    const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+    const [notFound, setNotFound] = useState(false);
+
+    var categoryName = shorts && shorts.category_id.name
+    // current : newsdID
+
+    const getShorts = async (page) => {
+        if (hasMore === true) {
+            setLoading(true);
+            const url = Host + Endpoints.getNews + `/${newsID}`;
+            const result = await axios.get(url);
+            if (result.data.error === true) {
+                console.log('there are some errors!');
+            } else {
+                result.data.data === null ? setNotFound(true) : (result.data.data.length === 0) ? setHasMore(false) : setShorts(result.data.data); setLoading(false)
+            }
+        }
+    }
+    useEffect(() => {
+        getShorts(page);
+    }, []);
     return (
         <>
             <Header />
-            <Breadcrumb />
+            <Breadcrumb page='read' title={shorts && shorts.title}/>
             <div className="container-fluid pb-5 mb-2 mb-md-4">
                 <div className="container-fluid">
                     <div className="row pt-5 mt-md-2">
                         <div className="col-lg-3"></div>
-                        <div className="col-lg-6">
-
-                            <AuthorCard />
-                            <NewsCard />
-                            <NewsCard />
-                            <NewsCard />
-                            <NewsCard />
-                            <NewsCard />
-
-                        </div>
-                        <Sidebar />
+                        {
+                            notFound === true ? <Notfound /> : shorts === undefined ?
+                                <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} /> :
+                                <>
+                                    <div className="col-lg-6">
+                                        <AuthorCard />
+                                        <NewsCard shortsData={shorts} />
+                                    </div>
+                                    <Sidebar />
+                                </>
+                        }
                     </div>
                 </div>
             </div>

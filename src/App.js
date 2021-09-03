@@ -12,10 +12,10 @@ function App() {
       <Suspense fallback={<div></div>}>
         <Switch>
 
-          <Route path="read/:slug/:newsID" component={Read}></Route>
+          <Route path="/read/:slug/:newsID" component={Read}></Route>
           <Route path="/author/:authorUserName" component={Author}></Route>
-
           <Route path="informational/:slug/" component={Informational}></Route>
+
 
 
           <Route exact path="/" component={Home}></Route>
