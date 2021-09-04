@@ -6,6 +6,10 @@ const Sharemodal = () => {
   
   const copyLink = () => {
     copyLinkRef.current.classList.remove("d-none");
+
+    setTimeout(() => {
+       copyLinkRef.current.classList.add("d-none");
+    }, 3000);
   };
   return (
     <>

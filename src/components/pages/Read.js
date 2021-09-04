@@ -31,7 +31,7 @@ const Read = () => {
             if (result.data.error === true) {
                 console.log('there are some errors!');
             } else {
-                result.data.data === null ? setNotFound(true) : (result.data.data.length === 0) ? setHasMore(false) : setShorts(result.data.data); setLoading(false)
+                result.data.data === null ? setNotFound(true) : (result.data.data.length === 0) ? setHasMore(false) : setShorts(result.data.data); setLoading(false);
             }
         }
     }
@@ -41,7 +41,7 @@ const Read = () => {
     return (
         <>
             <Header />
-            <Breadcrumb page='read' title={shorts && shorts.title}/>
+            <Breadcrumb page='read' title={shorts && shorts.title} />
             <div className="container-fluid pb-5 mb-2 mb-md-4">
                 <div className="container-fluid">
                     <div className="row pt-5 mt-md-2">
