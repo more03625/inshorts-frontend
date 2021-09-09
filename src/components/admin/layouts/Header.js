@@ -23,7 +23,7 @@ const Header = () => {
                             </button>
                             <a
                                 className="navbar-tool d-none d-lg-flex"
-                                href="javascript:void(0)"
+                                href="#"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#searchBox"
                                 role="button"

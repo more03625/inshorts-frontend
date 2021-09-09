@@ -1,16 +1,17 @@
 import React, { useRef } from "react";
+import Shorts from "../admin/sections/shorts/Shortslist";
 
-const Sharemodal = () => {
-
+const Sharemodal = ({ shareShort }) => {
   const copyLinkRef = useRef();
-  
-  const copyLink = () => {
-    copyLinkRef.current.classList.remove("d-none");
 
+  const copyLink = (shortsURL) => {
+    navigator.clipboard.writeText(shortsURL)
+    copyLinkRef.current.classList.remove("d-none");
     setTimeout(() => {
-       copyLinkRef.current.classList.add("d-none");
+      copyLinkRef.current.classList.add("d-none");
     }, 3000);
-  };
+  }
+  var shortsURL = window.location.href + "read/" + shareShort.shareSlug + "/" + shareShort.shareID;
   return (
     <>
       <div className="modal fade" id="modalDefault" tabIndex="-1" role="dialog">
@@ -27,38 +28,39 @@ const Sharemodal = () => {
             </div>
             <div className="modal-body">
               <div className="d-flex justify-content-center">
+
                 <a
-                  href="#"
+                  href={`https://www.facebook.com/sharer/sharer.php?u=${shortsURL}?utm_source=facebook`}
                   className="btn-social bs-facebook rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-facebook"></i>
                 </a>
                 <a
-                  href="#"
+                  href={`whatsapp://send?text=${shortsURL}?utm_source=whatsapp`}
                   className="btn-social bs-whatsapp rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-whatsapp"></i>
                 </a>
                 <a
-                  href="#"
+                  href={`https://twitter.com/share?url=${shortsURL}?utm_source=twitter`}
                   className="btn-social bs-twitter rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-twitter"></i>
                 </a>
                 <a
-                  href="#"
+                  href={`https://t.me/share/url?url=${shortsURL}?utm_source=telegram`}
                   className="btn-social bs-telegram rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-telegram"></i>
                 </a>
                 <a
-                  href="#"
+                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortsURL}?utm_source=linkdin`}
                   className="btn-social bs-linkedin rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-linkedin"></i>
                 </a>
                 <a
-                  href="#"
+                  href={`http://pinterest.com/pin/create/link/?url=${shortsURL}?utm_source=pinterest`}
                   className="btn-social bs-pinterest rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-pinterest"></i>
@@ -69,7 +71,7 @@ const Sharemodal = () => {
               <input
                 className="form-control"
                 type="text"
-                value="http://localhost:3000/read/test-property/61276a684bcd4344548cc576"
+                value={`${shortsURL}`}
                 readOnly
               />
               <p
@@ -82,7 +84,7 @@ const Sharemodal = () => {
 
               <span
                 className="ci-add-document float-end"
-                onClick={copyLink}
+                onClick={() => copyLink(shortsURL)}
                 style={{ cursor: "pointer" }}
               ></span>
             </div>

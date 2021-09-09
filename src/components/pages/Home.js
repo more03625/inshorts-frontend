@@ -8,6 +8,8 @@ import NewsCard from "../sections/NewsCard";
 import { Host, Endpoints } from "../../helpers/comman_helper";
 import axios from "axios";
 import Loading from "../sections/Loading";
+import Sharemodal from '../layouts/Sharemodal';
+
 const Home = () => {
 
     const [shorts, setShorts] = useState([]);
@@ -17,17 +19,24 @@ const Home = () => {
     const [size, setSize] = useState(2);
 
     const getShorts = async (page) => {
+        console.log(hasMore)
         if (hasMore === true) {
             setLoading(true);
-            const url = Host + Endpoints.getNews + `?page=${page}&size=${size}`;
+            const url = Host + Endpoints.news + `?page=${page}&size=${size}`;
             const result = await axios.get(url);
             if (result.data.error === true) {
                 console.log('there are some errors!')
             } else {
-                result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data]); setLoading(false);
+                console.log(result.data.data.length)
+                result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data]);
+                setLoading(false);
             }
         }
     }
+    const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
+
+    console.log(shareShort);
+
     useEffect(() => {
         getShorts(page, size);
     }, [page]);
@@ -40,12 +49,11 @@ const Home = () => {
                 <div className="container-fluid">
                     <div className="row pt-5 mt-md-2">
                         <div className="col-lg-3">
-
                         </div>
                         <div className="col-lg-6">
                             {
                                 shorts.map((shortsData, index) => (
-                                    <NewsCard key={index} shortsData={shortsData} />
+                                    <NewsCard key={index} shortsData={shortsData} setShareShort={setShareShort} />
                                 ))
                             }
                             <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />
@@ -54,6 +62,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <Sharemodal shareShort={shareShort} />
             <Footer />
         </>
     );

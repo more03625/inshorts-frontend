@@ -190,7 +190,7 @@ const Header = () => {
                                                             <h6 className="fs-base mb-3">Shop layouts</h6>
                                                             <ul className="widget-list">
                                                                 <li className="widget-list-item">
-                                                                <Link className="widget-list-link" to={'#'}>Informational</Link>
+                                                                    <Link className="widget-list-link" to={'#'}>Informational</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -201,7 +201,7 @@ const Header = () => {
                                         <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
                                             <ul className="dropdown-menu">
                                                 <li className="dropdown position-static mb-0">
-                                                    <a className="dropdown-item py-2" href="home-fashion-store-v1.html">
+                                                    <a className="dropdown-item py-2" href="#">
                                                         <span className="d-block text-heading">Business</span>
                                                         <small className="d-block text-muted">Short News <b>Business</b></small>
                                                     </a>

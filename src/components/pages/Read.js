@@ -20,13 +20,12 @@ const Read = () => {
     const [hasMore, setHasMore] = useState(true);
     const [notFound, setNotFound] = useState(false);
 
-    var categoryName = shorts && shorts.category_id.name
+    var categoryName = shorts && shorts.main_category
     // current : newsdID
-
     const getShorts = async (page) => {
         if (hasMore === true) {
             setLoading(true);
-            const url = Host + Endpoints.getNews + `/${newsID}`;
+            const url = Host + Endpoints.news + `/${newsID}`;
             const result = await axios.get(url);
             if (result.data.error === true) {
                 console.log('there are some errors!');

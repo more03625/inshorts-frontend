@@ -1,6 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 function Sidebar() {
+    var pathName = window.location.pathname;
+
     return (
         <>
             <aside className="col-lg-4 pe-xl-5">
@@ -19,41 +21,34 @@ function Sidebar() {
                             <h3 className="fs-sm mb-0 text-muted">Account</h3>
                         </div>
                         <ul className="list-unstyled mb-0">
-                            <li className="border-bottom mb-0">
-                                <Link
-                                    className="
-                    nav-link-style
-                    d-flex
-                    align-items-center
-                    px-4
-                    py-3
-                  " to="/admin/dashboard">
+
+                            <li
+                                className={`border-bottom mb-0 ${pathName === "/admin/dashboard" ? "active" : ""
+                                    } `}
+                            >
+                                <Link className="nav-link-style d-flex align-items-center px-4 py-3"
+                                    to="/admin/dashboard"
+                                >
                                     <i className="ci-settings opacity-60 me-2"></i>Dashboard
                                 </Link>
                             </li>
-                            <li className="border-bottom mb-0">
-                                <Link
-                                    className="
-                    nav-link-style
-                    d-flex
-                    align-items-center
-                    px-4
-                    py-3
-                  "
+
+                            <li
+                                className={`border-bottom mb-0 ${pathName === "/admin/add-shorts" ? "active" : ""
+                                    } `}
+                            >
+                                <Link className="nav-link-style d-flex align-items-center px-4 py-3"
                                     to="/admin/add-shorts"
                                 >
                                     <i className="ci-basket opacity-60 me-2"></i>Add Shorts
                                 </Link>
                             </li>
-                            <li className="mb-0">
+                            <li
+                                className={`border-bottom mb-0 ${pathName === "/admin/edit-shorts" ? "active" : ""
+                                    } `}
+                            >
                                 <Link
-                                    className="
-                    nav-link-style
-                    d-flex
-                    align-items-center
-                    px-4
-                    py-3
-                  "
+                                    className=" nav-link-style d-flex align-items-center px-4 py-3"
                                     to="/admin/edit-shorts"
                                 >
                                     <i className="ci-heart opacity-60 me-2"></i>Edit Shorts
@@ -67,7 +62,7 @@ function Sidebar() {
                 </div>
             </aside>
         </>
-    )
+    );
 }
 
-export default Sidebar
+export default Sidebar;

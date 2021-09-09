@@ -24,12 +24,16 @@ function App() {
           {/* Admin */}
           <Route path="/admin/login" component={Login}></Route>
           <Route path="/admin/dashboard" component={Dashboard}></Route>
-          <Route path="/admin/shorts" component={Shorts}></Route>
           <Route path="/admin/add-shorts" component={Shortsaction}></Route>
-          <Route path="/admin/edit-shorts" component={Shortsaction}></Route>
+          <Route path="/admin/edit-shorts/:shortsID" component={Shortsaction}></Route>
 
+          <Route path="/admin/edit-shorts" component={Shorts}></Route>
+          <Route path="/admin/shorts" component={Shorts}></Route>
 
           <Route exact path="/" component={Home}></Route>
+          <Route path="*">
+            Route Not found
+          </Route>
         </Switch>
       </Suspense>
     </Router>
