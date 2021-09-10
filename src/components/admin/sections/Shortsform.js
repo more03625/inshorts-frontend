@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { Endpoints, Host, convertToBase64, convertToSlug } from '../../../helpers/comman_helper';
 import axios from 'axios';
-
 const Shortsform = () => {
     const { shortsID } = useParams();
 
@@ -12,7 +11,9 @@ const Shortsform = () => {
     const [loading, setLoading] = useState(false);
     const [notFound, setNotFound] = useState(false);
     const [categories, setCategories] = useState(null);
+    const [visitShorts, setVisitShorts] = useState(null);
 
+    const history = useHistory();
     const getCategories = async () => {
         var url = Host + Endpoints.category
         const result = await axios.get(url);
@@ -71,8 +72,23 @@ const Shortsform = () => {
                 Object.assign(shortsData, { image: 0 });
             }
             var url = Host + Endpoints.news
-            const result = await axios.post(url, shortsData);
-            console.log(result);
+            const result = shortsID !== undefined ? await axios.put(url, shortsData) : await axios.post(url, shortsData);
+
+            if (result.data.error === false) {
+                // redirect to edit page or dash board
+                setVisitShorts(window.location.host + "/read/" + result.data.data.slug + "/" + result.data.data._id);
+                setTimeout(function () {
+                    console.log('Thanks')
+                    history.push('/admin/edit-shorts');
+                }, 2000);
+            } else {
+                // give error in alert
+
+            }
+            window.scrollTo({
+                behavior: 'smooth',
+                top: 0
+            })
         } else {
             console.log("Please fill the form!")
         }
@@ -115,6 +131,14 @@ const Shortsform = () => {
             <section className="col-lg-8 pt-lg-4 pb-4 mb-3">
                 <div className="pt-2 px-4 ps-lg-0 pe-xl-5">
 
+                    {visitShorts &&
+                        <div className="alert alert-success d-flex" role="alert">
+                            <div className="alert-icon">
+                                <i className="ci-check-circle"></i>
+                            </div>
+                            <div>Post has been addedd successfully <a target="_blank" rel="noreferrer" href={visitShorts} className="alert-link">View Post</a></div>
+                        </div>
+                    }
                     <div
                         className="d-sm-flex flex-wrap justify-content-between align-items-center pb-2 ">
                         <h2 className="h3 py-2 me-2 text-center text-sm-start">
@@ -122,11 +146,10 @@ const Shortsform = () => {
                         </h2>
                         <div className="py-2">
                             <select
-
                                 className="form-select me-2"
                                 name="status"
                                 onChange={(e) => handleChange(e)}
-                                defaultValue={shortsData && shortsData.post_status ? shortsData.post_status : ""}
+                                value={shortsData && shortsData.post_status ? shortsData.post_status : ""}
                             >
                                 <option value="">Select Status</option>
                                 <option value="publish">Publish</option>
@@ -151,7 +174,7 @@ const Shortsform = () => {
                             <div className="form-text">
                                 Total word count: <b>{wordCount.title}</b> words. Words left: <b>{wordCount.defaultTitle - wordCount.title}</b>
                             </div>
-                            <p className="fs-ms text-danger">{shortsDataError.title}</p>
+                            <p className="fs-ms text-danger fs-md">{shortsDataError.title}</p>
                         </div>
                         <div className="mb-3 py-2">
                             <label className="form-label" htmlFor="unp-shortds-description">
@@ -169,7 +192,7 @@ const Shortsform = () => {
                             <div className="form-text">
                                 Total word count: <b>{wordCount.description}</b> words. Words left: <b>{wordCount.defaultDescription - wordCount.description}</b>
                             </div>
-                            <p className="fs-ms text-danger">{shortsDataError.description}</p>
+                            <p className="fs-ms text-danger fs-md">{shortsDataError.description}</p>
 
                         </div>
                         <div className="mb-3 pb-2">
@@ -188,7 +211,7 @@ const Shortsform = () => {
                             <div className="form-text">
                                 Total word count: <b>{wordCount.summary}</b> words. Words left: <b>{wordCount.defaultSummary - wordCount.summary}</b>
                             </div>
-                            <p className="fs-ms text-danger">{shortsDataError.summary}</p>
+                            <p className="fs-ms text-danger fs-md">{shortsDataError.summary}</p>
 
                         </div>
                         <div className="mb-3 pb-2">
@@ -207,7 +230,7 @@ const Shortsform = () => {
                             <div className="form-text">
                                 Use <Link to={{ pathname: 'https://tinypng.com/' }}>Tinypng</Link> or <Link to={{ pathname: 'https://compressimage.toolur.com/' }}>Toolur</Link> to compress images. it should be less than 50KB
                             </div>
-                            <p className="fs-ms text-danger">{shortsDataError.image}</p>
+                            <p className="fs-ms text-danger fs-md">{shortsDataError.image}</p>
 
                         </div>
                         <div className="row">
@@ -216,25 +239,25 @@ const Shortsform = () => {
                                     Read at
                                 </label>
                                 <select className="form-select me-2" id="unp-category" name="read_at" onChange={(e) => handleChange(e)}
-                                    defaultValue={
-                                        shortsData && shortsData.category
-                                            ? shortsData.category
+                                    value={
+                                        shortsData && shortsData.read_at
+                                            ? shortsData.read_at
                                             : ""
                                     }
                                 >
-                                    <option>Read at</option>
-                                    <option>Photos</option>
-                                    <option>Graphics</option>
-                                    <option>UI Design</option>
-                                    <option>Web Themes</option>
-                                    <option>Fonts</option>
-                                    <option>Add-Ons</option>
+                                    <option value="">Read at</option>
+                                    <option value="Photos">Photos</option>
+                                    <option value="Graphics">Graphics</option>
+                                    <option value="UI Design">UI Design</option>
+                                    <option value="Web Themes">Web Themes</option>
+                                    <option value="Fonts">Fonts</option>
+                                    <option value="Add-Ons">Add-Ons</option>
                                 </select>
                                 <div className="form-text">
                                     Select read more brands!
 
                                 </div>
-                                <p className="fs-ms text-danger">{shortsDataError.read_at}</p>
+                                <p className="fs-ms text-danger fs-md">{shortsDataError.read_at}</p>
 
                             </div>
                             <div className="col-sm-6 mb-3">
@@ -254,7 +277,7 @@ const Shortsform = () => {
                                     Please enter a valid URL
 
                                 </div>
-                                <p className="fs-ms text-danger">{shortsDataError.read_at_link}</p>
+                                <p className="fs-ms text-danger fs-md">{shortsDataError.read_at_link}</p>
 
                             </div>
                         </div>
@@ -262,16 +285,10 @@ const Shortsform = () => {
                             <div className="col-sm-6 mb-3">
                                 <label className="form-label" htmlFor="unp-standard-price">
                                     Main Category
-
                                 </label>
-                                {console.log(shortsData)}
-                                <select className="form-select me-2" id="unp-category" name="main_category" onChange={(e) => handleChange(e)}
-                                    defaultValue={
-                                        shortsData && shortsData.category_id
-                                            ? shortsData.category_id._id
-                                            : ""
-                                    }
-                                >
+                                <select className="form-select me-2" id="unp-category" name="main_category"
+                                    onChange={(e) => handleChange(e)}
+                                    value={shortsData && shortsData.main_category !== '' ? shortsData.main_category : ''}>
                                     <option value="">Select category</option>
                                     {
                                         categories && categories.map((value, index) => (
@@ -282,14 +299,14 @@ const Shortsform = () => {
                                 <div className="form-text">
                                     Select only from suggestions!
                                 </div>
-                                <p className="fs-ms text-danger">{shortsDataError.main_category}</p>
+                                <p className="fs-ms text-danger fs-md">{shortsDataError.main_category}</p>
 
                             </div>
                             <div className="col-sm-6 mb-3">
                                 <label className="form-label" htmlFor="unp-extended-price">
                                     Sub categories
                                 </label>
-                                <select className="form-select me-2" id="unp-category" name="sub_categories" onChange={(e) => handleChange(e)} defaultValue={shortsData && shortsData.sub_categories}>
+                                <select className="form-select me-2" id="unp-category" name="sub_categories" onChange={(e) => handleChange(e)} value={shortsData && shortsData.sub_categories}>
                                     <option value="">Select sub category</option>
                                     {
                                         categories && categories.map((value, index) => (
@@ -301,7 +318,7 @@ const Shortsform = () => {
                                     Select only from suggestions!
 
                                 </div>
-                                <p className="fs-ms text-danger">{shortsDataError.sub_categories}</p>
+                                <p className="fs-ms text-danger fs-md">{shortsDataError.sub_categories}</p>
 
                             </div>
                         </div>
@@ -313,7 +330,7 @@ const Shortsform = () => {
                             <div className="form-text">
                                 Use trending keywords only to get traffic from Google! (Use <Link to={{ pathname: 'https://www.google.com/' }}>Google autocomplete</Link> feature to get trending keywords)
                             </div>
-                            <p className="fs-ms text-danger">{shortsDataError.short_tags}</p>
+                            <p className="fs-ms text-danger fs-md">{shortsDataError.short_tags}</p>
 
                         </div>
 

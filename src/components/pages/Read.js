@@ -10,6 +10,7 @@ import Loading from "../sections/Loading";
 import axios from "axios";
 import { Host, Endpoints } from "../../helpers/comman_helper";
 import Notfound from "./Notfound";
+import Sharemodal from "../layouts/Sharemodal";
 const Read = () => {
     const { slug, newsID } = useParams();
 
@@ -19,6 +20,7 @@ const Read = () => {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [notFound, setNotFound] = useState(false);
+    const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
 
     var categoryName = shorts && shorts.main_category
     // current : newsdID
@@ -51,7 +53,7 @@ const Read = () => {
                                 <>
                                     <div className="col-lg-6">
                                         <AuthorCard />
-                                        <NewsCard shortsData={shorts} />
+                                        <NewsCard shortsData={shorts} setShareShort={setShareShort} />
                                     </div>
                                     <Sidebar />
                                 </>
@@ -59,6 +61,7 @@ const Read = () => {
                     </div>
                 </div>
             </div>
+            <Sharemodal shareShort={shareShort} />
             <Footer />
         </>
     );

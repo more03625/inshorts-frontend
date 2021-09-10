@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Shorts from "../admin/sections/shorts/Shortslist";
 
 const Sharemodal = ({ shareShort }) => {
+  console.log(shareShort)
   const copyLinkRef = useRef();
 
   const copyLink = (shortsURL) => {
@@ -11,7 +12,9 @@ const Sharemodal = ({ shareShort }) => {
       copyLinkRef.current.classList.add("d-none");
     }, 3000);
   }
-  var shortsURL = window.location.href + "read/" + shareShort.shareSlug + "/" + shareShort.shareID;
+
+  var shortsURL = window.location.host + "/read/" + shareShort.shareSlug + "/" + shareShort.shareID;
+
   return (
     <>
       <div className="modal fade" id="modalDefault" tabIndex="-1" role="dialog">
@@ -30,37 +33,37 @@ const Sharemodal = ({ shareShort }) => {
               <div className="d-flex justify-content-center">
 
                 <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${shortsURL}?utm_source=facebook`}
+                  target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=${shortsURL}?utm_source=facebook`}
                   className="btn-social bs-facebook rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-facebook"></i>
                 </a>
                 <a
-                  href={`whatsapp://send?text=${shortsURL}?utm_source=whatsapp`}
+                  target="_blank" href={`whatsapp://send?text=${shortsURL}?utm_source=whatsapp`}
                   className="btn-social bs-whatsapp rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-whatsapp"></i>
                 </a>
                 <a
-                  href={`https://twitter.com/share?url=${shortsURL}?utm_source=twitter`}
+                  target="_blank" href={`https://twitter.com/share?url=${shortsURL}?utm_source=twitter`}
                   className="btn-social bs-twitter rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-twitter"></i>
                 </a>
                 <a
-                  href={`https://t.me/share/url?url=${shortsURL}?utm_source=telegram`}
+                  target="_blank" href={`https://t.me/share/url?url=${shortsURL}?utm_source=telegram`}
                   className="btn-social bs-telegram rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-telegram"></i>
                 </a>
                 <a
-                  href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortsURL}?utm_source=linkdin`}
+                  target="_blank" href={`https://www.linkedin.com/shareArticle?mini=true&url=${shortsURL}?utm_source=linkdin`}
                   className="btn-social bs-linkedin rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-linkedin"></i>
                 </a>
                 <a
-                  href={`http://pinterest.com/pin/create/link/?url=${shortsURL}?utm_source=pinterest`}
+                  target="_blank" href={`http://pinterest.com/pin/create/link/?url=${shortsURL}?utm_source=pinterest`}
                   className="btn-social bs-pinterest rounded-circle bs-outline bs-lg mx-2"
                 >
                   <i className="ci-pinterest"></i>

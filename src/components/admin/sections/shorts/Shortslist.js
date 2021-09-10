@@ -37,18 +37,7 @@ function Shorts() {
             <section className="col-lg-8 pt-lg-4 pb-4 mb-3">
 
                 <div className="table-responsive fs-md mb-4">
-                    <div className="alert alert-success d-flex" role="alert">
-                        <div className="alert-icon">
-                            <i className="ci-check-circle"></i>
-                        </div>
-                        <div>A simple success alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.</div>
-                    </div>
-                    <div className="alert alert-danger d-flex" role="alert">
-                        <div className="alert-icon">
-                            <i className="ci-check-circle"></i>
-                        </div>
-                        <div>A simple success alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.</div>
-                    </div>
+
                     <table className="table table-hover mb-0">
                         <thead>
                             <tr>
