@@ -1,43 +1,42 @@
-import { useEffect, useState } from "react";
-import NavInshorts from "./components/NavInshorts";
-import NewsContents from "./components/NewsContent/NewsContent";
-import Axios from 'axios';
-import Footer from "./components/Footer/Footer";
-import './App.css'
+import React, { Suspense } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 function App() {
+  const Home = React.lazy(() => import('./components/pages/Home'));
+  const Author = React.lazy(() => import('./components/pages/Author'));
+  const Read = React.lazy(() => import('./components/pages/Read'));
+  const Informational = React.lazy(() => import('./components/pages/Informational'));
 
-  const [category, setCategory] = useState('general');
-  const [newsResults, setNewsResults] = useState();
-  const [newsArray, setNewsArray] = useState([]);
-  const [loadMore, setLoadMore] = useState(10);
-  const [loadMoreBtn, setLoadMoreBtn] = useState('Load More');
-  console.log(process.env);
-  const newsApi = async () => {
-    setLoadMoreBtn('Loading...');
-    try {
-      const result = await Axios.get(`${process.env.REACT_APP_DEV_API_URL}/api/getPosts?category=${category}`);
-      console.log(result)
-      setNewsArray(result.data.articles);
-      setNewsResults(result.data.totalResults);
+  {/* Admin */ }
+  const Login = React.lazy(() => import('./components/admin/pages/Login'))
+  const Dashboard = React.lazy(() => import('./components/admin/pages/Dashboard'))
+  const Shorts = React.lazy(() => import('./components/admin/pages/Shorts'))
+  const Shortsaction = React.lazy(() => import('./components/admin/pages/Shortsaction'))
 
-    } catch (error) {
-      console.log('There is error: ' + error)
-    }
-    setLoadMoreBtn('Load More');
-
-  }
-  useEffect(() => {
-
-    newsApi();
-    // eslint-disable-next-line
-  }, [category, newsResults, loadMore])
   return (
-    <div className="App">
-      <NavInshorts setCategory={setCategory} />
-      <NewsContents loadMore={loadMore} setLoadMore={setLoadMore} newsArray={newsArray} newsResults={newsResults} loadMoreBtn={loadMoreBtn} setLoadMoreBtn={setLoadMoreBtn} />
-      <Footer />
-    </div>
-  );
-}
+    <Router>
+      <Suspense fallback={<div></div>}>
+        <Switch>
 
+          <Route path="/read/:slug/:newsID" component={Read}></Route>
+          <Route path="/author/:authorUserName" component={Author}></Route>
+          <Route path="informational/:slug/" component={Informational}></Route>
+
+          {/* Admin */}
+          <Route path="/admin/login" component={Login}></Route>
+          <Route path="/admin/dashboard" component={Dashboard}></Route>
+          <Route path="/admin/add-shorts" component={Shortsaction}></Route>
+          <Route path="/admin/edit-shorts/:shortsID" component={Shortsaction}></Route>
+
+          <Route path="/admin/edit-shorts" component={Shorts}></Route>
+          <Route path="/admin/shorts" component={Shorts}></Route>
+
+          <Route exact path="/" component={Home}></Route>
+          <Route path="*">
+            Route Not found
+          </Route>
+        </Switch>
+      </Suspense>
+    </Router>
+  )
+}
 export default App;

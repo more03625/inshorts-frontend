@@ -1,0 +1,411 @@
+{
+	"info": {
+		"_postman_id": "dd4dd582-5f87-4475-91c6-fa6960f07567",
+		"name": "newsdb-node",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "add News",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "second post",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "second-post",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "this is second post",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://localhost:5256/news/url",
+									"type": "text"
+								},
+								{
+									"key": "urlToImage",
+									"value": "http://localhost:5256/news/urltoImage",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "this is content for first post",
+									"type": "text"
+								},
+								{
+									"key": "post_image",
+									"type": "file",
+									"src": "/C:/Users/PRADEEP/OneDrive/Pictures/Screenshots/Screenshot (1).png"
+								},
+								{
+									"key": "category_id",
+									"value": "61276925aee53b52acba4363",
+									"type": "text"
+								},
+								{
+									"key": "sub_category",
+									"value": "share-markets",
+									"type": "text"
+								},
+								{
+									"key": "publishedAt",
+									"value": "2002-12-09",
+									"type": "text"
+								},
+								{
+									"key": "post_status",
+									"value": "draft",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/news/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-news",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news?page=1&size=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update news",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "post_id",
+									"value": "61276a684bcd4344548cc576",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "fifth post",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "fifth-post",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "this is fifth post",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://localhost:5256/news/url",
+									"type": "text"
+								},
+								{
+									"key": "urlToImage",
+									"value": "http://localhost:5256/news/urltoImage",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "this is content for fifth post",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "61276925aee53b52acba4363",
+									"type": "text"
+								},
+								{
+									"key": "sub_category",
+									"value": "share-market",
+									"type": "text"
+								},
+								{
+									"key": "publishedAt",
+									"value": "2020-12-09",
+									"type": "text"
+								},
+								{
+									"key": "post_status",
+									"value": "draft",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/news/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-news-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/611f3d173c01e020d4ff309b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"611f3d173c01e020d4ff309b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-news",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/611f481813267f23c0d83454",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"611f481813267f23c0d83454"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-news-by-article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/article/first-post",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"article",
+								"first-post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "add-category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "category 4",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "category-4",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/category/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category?page=1&size=2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-category-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/article/61276925aee53b52acba4363",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"article",
+								"61276925aee53b52acba4363"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "category_id",
+									"value": "61276925aee53b52acba4363",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "category 1",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "category-1",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/category/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/61276edc70e152037c54b690",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"61276edc70e152037c54b690"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
