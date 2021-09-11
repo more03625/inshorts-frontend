@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AdminRoute from './auth/AdminRoute';
+import PrivateRoute from './auth/PrivateRoute';
 function App() {
   const Home = React.lazy(() => import('./components/pages/Home'));
   const Author = React.lazy(() => import('./components/pages/Author'));
@@ -22,13 +24,13 @@ function App() {
           <Route path="informational/:slug/" component={Informational}></Route>
 
           {/* Admin */}
-          <Route path="/admin/login" component={Login}></Route>
-          <Route path="/admin/dashboard" component={Dashboard}></Route>
-          <Route path="/admin/add-shorts" component={Shortsaction}></Route>
-          <Route path="/admin/edit-shorts/:shortsID" component={Shortsaction}></Route>
+          <AdminRoute path="/admin/login" component={Login}></AdminRoute>
+          <AdminRoute path="/admin/dashboard" component={Dashboard}></AdminRoute>
+          <AdminRoute path="/admin/add-shorts" component={Shortsaction}></AdminRoute>
+          <AdminRoute path="/admin/edit-shorts/:shortsID" component={Shortsaction}></AdminRoute>
 
-          <Route path="/admin/edit-shorts" component={Shorts}></Route>
-          <Route path="/admin/shorts" component={Shorts}></Route>
+          <AdminRoute path="/admin/edit-shorts" component={Shorts}></AdminRoute>
+          <AdminRoute path="/admin/shorts" component={Shorts}></AdminRoute>
 
           <Route exact path="/" component={Home}></Route>
           <Route path="*">

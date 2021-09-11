@@ -1,5 +1,10 @@
-import { Link } from "react-router-dom";
-const Header = () => {
+import { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+import Signin from "../pages/SignIn";
+import SignUp from "../pages/SignUp";
+import {isAuthenticated, signout} from "../../auth"
+const Header = ({history}) => {
+   
     return (
         <>
             {/*<body className="toolbar-enabled">*/}
@@ -15,60 +20,8 @@ const Header = () => {
                             <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body tab-content py-4">
-                            <form className="needs-validation tab-pane fade show active" autoComplete="off" noValidate id="signin-tab">
-                                <div className="mb-3">
-                                    <label className="form-label" htmlFor="si-email">Email address</label>
-                                    <input className="form-control" type="email" id="si-email" placeholder="johndoe@example.com" required />
-                                    <div className="invalid-feedback">Please provide a valid email address.</div>
-                                </div>
-                                <div className="mb-3">
-                                    <label className="form-label" htmlFor="si-password">Password</label>
-                                    <div className="password-toggle">
-                                        <input className="form-control" type="password" id="si-password" required />
-                                        <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="mb-3 d-flex flex-wrap justify-content-between">
-                                    <div className="form-check mb-2">
-                                        <input className="form-check-input" type="checkbox" id="si-remember" />
-                                        <label className="form-check-label" htmlFor="si-remember">Remember me</label>
-                                    </div><a className="fs-sm" href="#">Forgot password?</a>
-                                </div>
-                                <button className="btn btn-primary btn-shadow d-block w-100" type="submit">Sign in</button>
-                            </form>
-                            <form className="needs-validation tab-pane fade" autoComplete="off" noValidate id="signup-tab">
-                                <div className="mb-3">
-                                    <label className="form-label" htmlFor="su-name">Full name</label>
-                                    <input className="form-control" type="text" id="su-name" placeholder="John Doe" required />
-                                    <div className="invalid-feedback">Please fill in your name.</div>
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="su-email">Email address</label>
-                                    <input className="form-control" type="email" id="su-email" placeholder="johndoe@example.com" required />
-                                    <div className="invalid-feedback">Please provide a valid email address.</div>
-                                </div>
-                                <div className="mb-3">
-                                    <label className="form-label" htmlFor="su-password">Password</label>
-                                    <div className="password-toggle">
-                                        <input className="form-control" type="password" id="su-password" required />
-                                        <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="mb-3">
-                                    <label className="form-label" htmlFor="su-password-confirm">Confirm password</label>
-                                    <div className="password-toggle">
-                                        <input className="form-control" type="password" id="su-password-confirm" required />
-                                        <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <button className="btn btn-primary btn-shadow d-block w-100" type="submit">Sign up</button>
-                            </form>
+                            <Signin/>
+                            <SignUp/>
                         </div>
                     </div>
                 </div>
@@ -90,12 +43,19 @@ const Header = () => {
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span className="navbar-toggler-icon"></span></button><a className="navbar-tool navbar-stuck-toggler" href="#"><span className="navbar-tool-tooltip">Expand menu</span>
                                         <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-menu"></i></div></a>
 
-                                    <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
+                                    <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href={isAuthenticated()?"":"#signin-modal"} data-bs-toggle="modal">
                                         <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-user"></i></div>
-                                        <div className="navbar-tool-text ms-n3"><small>Hello, Sign in</small>My Account</div></a>
-
+                                        <div className="navbar-tool-text ms-n3"><small>Hello, {isAuthenticated() ? isAuthenticated().user.name : "Sign In"}</small>My Account</div></a>
 
                                 </div>
+                                {isAuthenticated() && <button className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" onClick={() => {
+                                    signout(() => {
+                                        history.push('/');
+                                    })
+                                }} data-bs-toggle="modal">
+                                {/* <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-user"></i></div> */}
+                                <div className="navbar-tool-text ms-n3">Log Out</div></button>
+}
                             </div>
                         </div>
                         <div className="navbar navbar-expand-lg navbar-light navbar-stuck-menu mt-n2 pt-0 pb-2">
@@ -403,4 +363,4 @@ const Header = () => {
         </>
     )
 }
-export default Header;
+export default withRouter(Header);

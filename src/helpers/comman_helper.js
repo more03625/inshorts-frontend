@@ -1,4 +1,4 @@
-export const Host = 'http://localhost:5254';
+export const Host = 'http://192.168.0.104:5254';
 
 export const Endpoints = {
     news: '/news',
