@@ -1,4 +1,6 @@
-const Breadcrumb = ({page, title}) => {
+import { Link } from "react-router-dom";
+
+const Breadcrumb = ({ page, title }) => {
     return (
         <div className="bg-secondary py-4">
             <div className="container d-lg-flex justify-content-between py-2 py-lg-3">
@@ -6,25 +8,20 @@ const Breadcrumb = ({page, title}) => {
                     <nav aria-label="breadcrumb">
                         <ol className="breadcrumb flex-lg-nowrap justify-content-center justify-content-lg-start">
                             <li className="breadcrumb-item">
-                                <a className="text-nowrap" href="index.html">
+                                <Link className="text-nowrap" to="/">
                                     <i className="ci-home"></i>Home
-                                </a>
+                                </Link>
                             </li>
                             <li className="breadcrumb-item text-nowrap">
-                                <a href="#">{page}</a>
+                                {page}
                             </li>
-                            <li
-                                className="breadcrumb-item text-nowrap active"
-                                aria-current="page"
-                            >
+                            <li className="breadcrumb-item text-nowrap active" aria-current="page">
                                 {title}
                             </li>
                         </ol>
                     </nav>
                 </div>
-                <div className="order-lg-1 pe-lg-4 text-center text-lg-start">
-                  
-                </div>
+                <div className="order-lg-1 pe-lg-4 text-center text-lg-start"></div>
             </div>
         </div>
     )

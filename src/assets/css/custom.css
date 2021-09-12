@@ -20,3 +20,19 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .offcanvas-collapse {
+    position: sticky;
+    top: 5% !important;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .offcanvas-collapse {
+    position: sticky;
+    top: 5% !important;
+  }
+}

@@ -20,7 +20,6 @@ const Sidebar = () => {
     useEffect(() => {
         getCategoryWithNewsCount();
     }, [])
-
     return (
         <aside className="col-lg-3">
             <div className="offcanvas offcanvas-collapse offcanvas-end border-start ms-lg-auto" id="blog-sidebar" style={{ maxWidth: "22rem" }}>

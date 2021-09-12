@@ -10,22 +10,11 @@ const NewsCard = ({ shortsData, setShareShort }) => {
       <article className="masonry-grid-item">
         <div className="card gallery">
           <Toaster />
-          <span className="blog-entry-meta-label fs-sm">
-            <i className="ci-video"></i>
-            <a
-              target="_blank"
-              href="https://www.youtube.com/watch?v=TedKIlo0c04"
-            >
-              <span className="fs-ms">Watch video</span>
-            </a>
-          </span>
-
           <img
             className="card-img-top"
             src={`${Host + shortsData.image}`}
             alt="Post"
           />
-
           <div className="card-body">
             <h2 className="h6 blog-entry-title" title={shortsData.title}>
               <Link
@@ -44,8 +33,8 @@ const NewsCard = ({ shortsData, setShareShort }) => {
             <p className="news-additional-info" title={shortsData.title}>
               Shorts by{" "}
               <span>
-                <Link className="me-2 mb-2" to="/author/rahulmore">
-                  Rahul More
+                <Link className="me-2 mb-2" to={`/author/${shortsData.author_id && shortsData.author_id._id}`}>
+                  {shortsData.author_id && shortsData.author_id.name}
                 </Link>
                 {
                   new Date(shortsData.createdAt).toDateString()

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import { Endpoints, Host, convertToBase64, convertToSlug, uppercaseFirstLetter, createReader } from '../../../helpers/comman_helper';
 import axios from 'axios';
-import { status } from '../../../data/select.json';
+import { status, readAt } from '../../../data/select.json';
 const Shortsform = () => {
     const { shortsID } = useParams();
     const requiredWidth = 600;
@@ -299,12 +299,11 @@ const Shortsform = () => {
                                     }
                                 >
                                     <option value="">Read at</option>
-                                    <option value="Photos">Photos</option>
-                                    <option value="Graphics">Graphics</option>
-                                    <option value="UI Design">UI Design</option>
-                                    <option value="Web Themes">Web Themes</option>
-                                    <option value="Fonts">Fonts</option>
-                                    <option value="Add-Ons">Add-Ons</option>
+                                    {
+                                        readAt.map((value, index) => (
+                                            <option key={index} value={value}>{value}</option>
+                                        ))
+                                    }
                                 </select>
                                 <div className="form-text">
                                     Select read more brands!

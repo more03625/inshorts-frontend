@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Host } from "../../../helpers/comman_helper";
 const Header = () => {
     return (
         <>
@@ -7,10 +8,10 @@ const Header = () => {
                 <div className="navbar navbar-expand-lg navbar-light">
                     <div className="container">
                         <Link className="navbar-brand d-none d-sm-block flex-shrink-0 me-4 order-lg-1" to="/admin/dashboard">
-                            <img src="img/logo-dark.png" width="142" alt="NewsDB" />
+                            <img src={Host + '/uploads/logo/news-db-pc-light-logo.png'} width="142" alt="NewsDB" />
                         </Link>
                         <Link className="navbar-brand d-sm-none me-2 order-lg-1" to="/admin/dashboard">
-                            <img src="img/logo-icon.png" width="74" alt="NewsDB" />
+                            <img src={Host + '/uploads/logo/news-db-mobile-light-logo.png'} width="74" alt="NewsDB Mobile" />
                         </Link>
                         <div className="navbar-toolbar d-flex align-items-center order-lg-3">
                             <button

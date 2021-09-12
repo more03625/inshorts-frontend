@@ -14,8 +14,8 @@ function Category() {
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
     const [size, setSize] = useState(2);
-
-    const { slug } = useParams()
+    const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
+    const { slug } = useParams();
 
     const getShortsByCategory = async (page) => {
         if (hasMore === true) {
@@ -25,12 +25,13 @@ function Category() {
             if (result.data.error === true) {
                 console.log('there are some errors!')
             } else {
-                result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
+                console.log(result.data.data)
+                // result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
                 setLoading(false);
             }
         }
     }
-    const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
+
     useEffect(() => {
         window.scrollTo({
             behavior: "smooth",
@@ -41,7 +42,7 @@ function Category() {
     return (
         <>
             <Header />
-            <Breadcrumb />
+            <Breadcrumb page="category" title={slug} />
             <div className="container-fluid pb-5 mb-2 mb-md-4">
                 <div className="container-fluid">
                     <div className="row pt-5 mt-md-2">
@@ -52,7 +53,7 @@ function Category() {
                                     <NewsCard key={index} shortsData={shortsData} setShareShort={setShareShort} />
                                 ))
                             }
-                            {/* <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />*/}
+                            <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />
 
                         </div>
                         <Sidebar />

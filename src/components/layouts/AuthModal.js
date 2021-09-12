@@ -1,6 +1,82 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import { Host, Endpoints } from '../../helpers/comman_helper';
+import axios from 'axios';
 function AuthModal() {
+    const [signUpData, setSignUpData] = useState(null);
+    const [signUpDataError, setSignUpDataError] = useState({});
+    const [loading, setLoading] = useState({ signIn: false, signUp: false });
+    const [signInData, setSignInData] = useState(null);
+    const [signInDataError, setSignInDataError] = useState({});
+
+    const handleSignupChange = (e) => {
+        setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
+    }
+    const isValidSignup = () => {
+        var emailValidator = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(signUpData && signUpData.email);
+
+        if (signUpData === null || signUpData.name === '' || signUpData === undefined) {
+            setSignUpDataError({ name: 'Please enter your name!' })
+            return false;
+        } else if (signUpData.email === '' || signUpData.email === undefined || !emailValidator) {
+            setSignUpDataError({ email: 'Please enter a valid email!' })
+            return false;
+        }
+        else if (signUpData.password === '' || signUpData.password === undefined) {
+            setSignUpDataError({ password: 'Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, and one number' })
+            return false;
+        }
+        else if (signUpData.confirm_password === '' || signUpData.confirm_password === undefined) {
+            setSignUpDataError({ confirm_password: 'Please confirm your password!' })
+            return false;
+        }
+        else if (signUpData.password !== signUpData.confirm_password) {
+            setSignUpDataError({ confirm_password: 'Passwords are not matching!' })
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    const handleSignUp = async (e) => {
+        setLoading({ signUp: true });
+        e.preventDefault();
+        if (isValidSignup()) {
+            setSignUpDataError('');
+            const url = Host + Endpoints.signup;
+            const result = await axios.post(url, signUpData);
+            console.log(result.data.user);
+        }
+        setLoading({ signUp: false });
+    }
+    const handleSignInChange = (e) => {
+        setSignInData({ ...signInData, [e.target.name]: e.target.value });
+    }
+    const isValidSigIn = () => {
+        var emailValidator = new RegExp(
+            /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g
+        ).test(signInData && signInData.email);
+        if (signInData === null || signInData.email === '' || signInData.email === undefined || !emailValidator) {
+            setSignInDataError({ email: 'Please enter a valid email!' })
+            return false;
+        } else if (signInData.password === '' || signInData.password === undefined) {
+            setSignInDataError({ password: 'Please enter your password!' })
+            return false;
+        } else {
+            return true;
+        }
+    }
+    const handleSignIn = async (e) => {
+        setLoading({ signIn: true });
+        e.preventDefault();
+        if (isValidSigIn()) {
+            setSignInDataError('');
+            const url = Host + Endpoints.signin;
+            const result = await axios.post(url, signInData);
+            console.log(result.data.user);
+        }
+        setLoading({ signIn: false });
+
+    }
     return (
         <>
             <div className="modal fade" id="signin-modal" tabIndex="-1" role="dialog">
@@ -8,66 +84,100 @@ function AuthModal() {
                     <div className="modal-content">
                         <div className="modal-header bg-secondary">
                             <ul className="nav nav-tabs card-header-tabs" role="tablist">
-                                <li className="nav-item"><a className="nav-link fw-medium active" href="#signin-tab" data-bs-toggle="tab" role="tab" aria-selected="true"><i className="ci-unlocked me-2 mt-n1"></i>Sign in</a></li>
-                                <li className="nav-item"><a className="nav-link fw-medium" href="#signup-tab" data-bs-toggle="tab" role="tab" aria-selected="false"><i className="ci-user me-2 mt-n1"></i>Sign up</a></li>
+                                <li className="nav-item">
+                                    <a className="nav-link fw-medium active" href="#signin-tab" data-bs-toggle="tab" role="tab" aria-selected="true">
+                                        <i className="ci-unlocked me-2 mt-n1"></i>Sign in
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link fw-medium" href="#signup-tab" data-bs-toggle="tab" role="tab" aria-selected="false">
+                                        <i className="ci-user me-2 mt-n1"></i>Sign up
+                                    </a>
+                                </li>
                             </ul>
                             <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body tab-content py-4">
-                            <form className="needs-validation tab-pane fade show active" autoComplete="off" noValidate id="signin-tab">
+                            <form className="tab-pane fade show active" autoComplete="off" id="signin-tab" onSubmit={handleSignIn}>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="si-email">Email address</label>
-                                    <input className="form-control" type="email" id="si-email" placeholder="johndoe@example.com" required />
-                                    <div className="invalid-feedback">Please provide a valid email address.</div>
+                                    <input className="form-control" type="text" id="si-email" name="email" placeholder="Enter your email" onChange={(e) => handleSignInChange(e)} />
+                                    <div className="text-danger">{signInDataError.email}</div>
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="si-password">Password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="si-password" required />
+                                        <input className="form-control" type="password" id="si-password" name="password" placeholder="Enter your password" onChange={(e) => handleSignInChange(e)} />
                                         <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
+                                            <input className="password-toggle-check" type="checkbox" />
+                                            <span className="password-toggle-indicator"></span>
                                         </label>
+                                        <div className="text-danger">{signInDataError.password}</div>
                                     </div>
                                 </div>
                                 <div className="mb-3 d-flex flex-wrap justify-content-between">
                                     <div className="form-check mb-2">
                                         <input className="form-check-input" type="checkbox" id="si-remember" />
                                         <label className="form-check-label" htmlFor="si-remember">Remember me</label>
-                                    </div><a className="fs-sm" href="#">Forgot password?</a>
+                                    </div>
+                                    <a className="fs-sm" href="#">Forgot password?</a>
                                 </div>
-                                <button className="btn btn-primary btn-shadow d-block w-100" type="submit">Sign in</button>
+                                <button className="btn btn-primary btn-shadow d-block w-100" type="submit" disabled={loading.signIn}>Sign in
+                                    {
+                                        loading.signIn === true ? (
+                                            <div class="mx-2 mt-1 spinner-border spinner-border-sm" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        ) : ('')
+                                    }
+                                </button>
                             </form>
-                            <form className="needs-validation tab-pane fade" autoComplete="off" noValidate id="signup-tab">
+
+                            <form className="tab-pane fade" autoComplete="off" id="signup-tab" onSubmit={handleSignUp}>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="su-name">Full name</label>
-                                    <input className="form-control" type="text" id="su-name" placeholder="John Doe" required />
-                                    <div className="invalid-feedback">Please fill in your name.</div>
+                                    <input className="form-control" type="text" id="su-name" name="name" placeholder="Enter your name" onChange={(e) => handleSignupChange(e)} />
+                                    <div className="text-danger">{signUpDataError.name}</div>
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="su-email">Email address</label>
-                                    <input className="form-control" type="email" id="su-email" placeholder="johndoe@example.com" required />
-                                    <div className="invalid-feedback">Please provide a valid email address.</div>
+                                    <input className="form-control" type="text" id="su-email" name="email" placeholder="Enter your email" onChange={(e) => handleSignupChange(e)} />
+                                    <div className="text-danger">{signUpDataError.email}</div>
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="su-password">Password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="su-password" required />
+                                        <input className="form-control" type="password" id="su-password" name="password" placeholder="Enter your password" onChange={(e) => handleSignupChange(e)} />
+                                        <div className="text-danger fs-sm">{signUpDataError.password}</div>
+
                                         <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
+                                            <input className="password-toggle-check" type="checkbox" />
+                                            <span className="password-toggle-indicator"></span>
                                         </label>
                                     </div>
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="su-password-confirm">Confirm password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="su-password-confirm" required />
+                                        <input className="form-control" type="password" id="su-password-confirm" name="confirm_password" placeholder="Confirm your password" onChange={(e) => handleSignupChange(e)} />
+                                        <div className="text-danger">{signUpDataError.confirm_password}</div>
+
                                         <label className="password-toggle-btn" aria-label="Show/hide password">
                                             <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
                                         </label>
                                     </div>
                                 </div>
-                                <button className="btn btn-primary btn-shadow d-block w-100" type="submit">Sign up</button>
+                                <button className="btn btn-primary btn-shadow d-block w-100" type="submit" disabled={loading.signUp}>Sign up
+                                    {
+                                        loading.signUp === true ? (
+                                            <div class="mx-2 mt-1 spinner-border spinner-border-sm" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        ) : ('')
+                                    }
+                                </button>
                             </form>
+
                         </div>
                     </div>
                 </div>

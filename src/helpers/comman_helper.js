@@ -2,7 +2,9 @@ export const Host = 'http://localhost:5254';
 
 export const Endpoints = {
     news: '/news',
-    category: '/category'
+    category: '/category',
+    signup: '/api/signup',
+    signin: '/api/signin',
 }
 export const convertToSlug = (shortsTitle) => {
     return shortsTitle
