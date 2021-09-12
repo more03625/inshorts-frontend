@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "02e4c8f1-1333-41ee-a92e-9bdcfc58b8f7",
+		"name": "newsdb-node",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "add News",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"description\": \"Farmers on Saturday called off their week-long protests in Haryana against Karnal IAS officer Ayush Sinha's \\\"break their heads\\\" if they try to cross the barricades remark. This comes after Haryana government ordered a probe into the August 28 lathicharge incident at Bastara toll plaza. Sinha will be on leave during the month-long probe, Additional Chief Secretary Devender Singh said.\",\r\n\"isImageSelected\": true,\r\n\"main_category\": \"613455a31045c357c0c20a45\",\r\n\"read_at\": \"Fonts\",\r\n\"read_at_link\": \"https://inshorts.com/en/news/farmers-call-off-weeklong-protests-in-haryana-over-ias-officers-break-heads-remark-1631343304966\",\r\n\"short_tags\": \"ABCD, RAHUL MORE\",\r\n\"slug\": \"farmers-call-off-week-long-protests-in-haryana-over-ias-officers-break-heads-remark\",\r\n\"status\": \"publish\",\r\n\"sub_categories\": \"613455bc1045c357c0c20a47\",\r\n\"summary\": \"Additional Chief Secretary Devender Singh said.\",\r\n\"title\": \"Farmers call off week-long protests in Haryana over IAS officer's 'break heads' remark\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/news/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-news",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news?page=1&size=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update news",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "post_id",
+									"value": "61276a684bcd4344548cc576",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "fifth post",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "fifth-post",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "this is fifth post",
+									"type": "text"
+								},
+								{
+									"key": "url",
+									"value": "http://localhost:5256/news/url",
+									"type": "text"
+								},
+								{
+									"key": "urlToImage",
+									"value": "http://localhost:5256/news/urltoImage",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "this is content for fifth post",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "61276925aee53b52acba4363",
+									"type": "text"
+								},
+								{
+									"key": "sub_category",
+									"value": "share-market",
+									"type": "text"
+								},
+								{
+									"key": "publishedAt",
+									"value": "2020-12-09",
+									"type": "text"
+								},
+								{
+									"key": "post_status",
+									"value": "draft",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/news/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-news-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/613c56793badd54df868c833",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"613c56793badd54df868c833"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-news",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/611f481813267f23c0d83454",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"611f481813267f23c0d83454"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-news-by-article",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/news/article/first-post",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"news",
+								"article",
+								"first-post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getNewsByCategorySlug",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/sports",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"sports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "add-category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "category 4",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "category-4",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/category/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-category-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/article/61276925aee53b52acba4363",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"article",
+								"61276925aee53b52acba4363"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "category_id",
+									"value": "61276925aee53b52acba4363",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "category 1",
+									"type": "text"
+								},
+								{
+									"key": "slug",
+									"value": "category-1",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/category/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/61276edc70e152037c54b690",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"61276edc70e152037c54b690"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get post by category slug",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/category/sports",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"category",
+								"sports"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"siddhantahir\",\r\n    \"email\":\"siddhantahire908@gmail.com\",\r\n    \"password\":\"User@1233\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"siddhantahire98@gmail.com\",\r\n    \"password\":\"User@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTNjNjU4NTkwMWYxMjNlOTBhOGQ4NWIiLCJpYXQiOjE2MzEzNDgzMzR9.BBpTDpsn5JfG6uutOiLmA6tDLiU6ABzoJyWDwXcKEdc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTNjNjU4NTkwMWYxMjNlOTBhOGQ4NWIiLCJpYXQiOjE2MzEzNDgzMzR9.BBpTDpsn5JfG6uutOiLmA6tDLiU6ABzoJyWDwXcKEdc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/user/613c6585901f123e90a8d85b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"613c6585901f123e90a8d85b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

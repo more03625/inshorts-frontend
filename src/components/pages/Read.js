@@ -13,7 +13,6 @@ import Notfound from "./Notfound";
 import Sharemodal from "../layouts/Sharemodal";
 const Read = () => {
     const { slug, newsID } = useParams();
-
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(2);
     const [shorts, setShorts] = useState();
@@ -37,8 +36,12 @@ const Read = () => {
         }
     }
     useEffect(() => {
+        window.scrollTo({
+            behavior: "smooth",
+            top: 0
+        });
         getShorts(page);
-    }, []);
+    }, [newsID]);
     return (
         <>
             <Header />
@@ -56,12 +59,12 @@ const Read = () => {
                                         <NewsCard shortsData={shorts} setShareShort={setShareShort} />
                                     </div>
                                     <Sidebar />
+                                    <Sharemodal shareShort={shareShort} />
                                 </>
                         }
                     </div>
                 </div>
             </div>
-            <Sharemodal shareShort={shareShort} />
             <Footer />
         </>
     );

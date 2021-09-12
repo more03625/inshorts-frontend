@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Loading({ loading, hasMore, setPage, page }) {
+const Loading = ({ loading, hasMore, setPage, page }) => {
     if (hasMore !== false) {
         window.onscroll = function () {
             if (window.pageYOffset + window.innerHeight >= (document.documentElement.scrollHeight - 400)) {

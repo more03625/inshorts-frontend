@@ -1,0 +1,56 @@
+{
+    "topCategories":[
+        {
+            "status": true,
+            "_id": "61276925aee53b52acba4363",
+            "slug": "category-1",
+            "createdAt": "2021-08-26T10:12:53.133Z",
+            "updatedAt": "2021-08-26T11:17:21.940Z",
+            "__v": 0,
+            "name": "category 1",
+            "count":50
+        },
+        {
+            "status": true,
+            "_id": "61276ce24eb1f540bce4737a",
+            "name": "category 2",
+            "slug": "category-2",
+            "createdAt": "2021-08-26T10:28:50.030Z",
+            "updatedAt": "2021-08-26T10:28:50.030Z",
+            "__v": 0,
+            "count":60
+        }
+    ],
+    "trendingPosts":[
+        {
+            "_id":"61383b493817f64468007501",
+            "title":"Actress Alankrita held hostage at her rented home in Chandigarh, robbed of ₹6.5 lakh", "slug":"actress-alankrita-held-hostage-at-her-rented-home-in-chandigarh-robbed-of-65-lakh", 
+            "by":"Rahul More",
+            "image":"/uploads/inXP493x.jpg"
+        },
+        {
+            "_id":"613a44dc7bd9db473898fc13",
+            "title":"TN extends ban on public gatherings till Oct 31 amid fears over 3rd COVID-19 wave",
+            "slug":"tn-extends-ban-on-public-gatherings-till-oct-31-amid-fears-over-3rd-covid-19-wave",
+            "by":"Yogesh More",
+            "image":"/uploads/inXP493x.jpg"
+        },
+        {
+            "_id":"613b52208a058326c493b6b9",
+            "title":"Yami criticises media outlet for mentioning only male actors in movie review headline",
+            "slug":"yami-criticises-media-outlet-for-mentioning-only-male-actors-in-movie-review-headline",
+            "by":"Rohit Bhosale",
+            "image":"/uploads/inXP493x.jpg"
+        }
+    ],
+    "authorCardData":[
+        {
+            "_id":"613b52208a058326c493b6b9",
+            "image":"/uploads/user-profile/8kJEEL5K.jpg",
+            "name":"Rahul More",
+            "userName": "rahulmore",
+            "shortsCount":50,
+            "followCount":100
+        }
+    ]
+}

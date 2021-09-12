@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
-import { convertToSlug } from "../../helpers/comman_helper";
+import { convertToSlug, Host } from "../../helpers/comman_helper";
 import toast, { Toaster } from "react-hot-toast";
 
 const NewsCard = ({ shortsData, setShareShort }) => {
-  console.log()
+
   return (
     <>
       <article className="masonry-grid-item">
@@ -22,7 +22,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
 
           <img
             className="card-img-top"
-            src="../../../assets/images/drone.jpg"
+            src={`${Host + shortsData.image}`}
             alt="Post"
           />
 
@@ -38,7 +38,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
                     : ""
                 }
               >
-                {shortsData.title}
+                {shortsData.main_category.name}) {shortsData.title}
               </Link>
             </h2>
             <p className="news-additional-info" title={shortsData.title}>
@@ -82,7 +82,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
                 id="share-btn"
                 data-bs-toggle="modal" data-bs-target="#modalDefault"
               >
-                <i className="ci-telegram "></i>31
+                <i className="ci-telegram "></i> {/*31*/}
               </a>
             </div>
           </div>

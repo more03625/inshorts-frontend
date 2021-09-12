@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams, useHistory } from 'react-router-dom'
-import { Endpoints, Host, convertToBase64, convertToSlug } from '../../../helpers/comman_helper';
+import { Endpoints, Host, convertToBase64, convertToSlug, uppercaseFirstLetter, createReader } from '../../../helpers/comman_helper';
 import axios from 'axios';
+import { status } from '../../../data/select.json';
 const Shortsform = () => {
     const { shortsID } = useParams();
+    const requiredWidth = 600;
+    const requiredHeight = 358;
 
     const [shortsData, setShortsData] = useState(null);
     const [shortsDataError, setShortsDataError] = useState({});
@@ -27,7 +30,11 @@ const Shortsform = () => {
         if (shortsData === null || shortsData.title === '') {
             setShortsDataError({ title: 'Please add title' });
             return false;
-        } else if (shortsData.description === '' || shortsData.description === undefined) {
+        } else if (shortsData.status === '' || shortsData.status === undefined) {
+            setShortsDataError({ status: 'Please select status' });
+            return false;
+        }
+        else if (shortsData.description === '' || shortsData.description === undefined) {
             setShortsDataError({ description: 'Please add description' });
             return false;
         }
@@ -65,46 +72,78 @@ const Shortsform = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        var slug = convertToSlug(shortsData.title);
-        Object.assign(shortsData, { slug: slug });
+
         if (isValid()) {
+            var slug = convertToSlug(shortsData.title);
+            Object.assign(shortsData, { slug: slug });
+
             if (shortsData.isImageSelected === undefined) {
                 Object.assign(shortsData, { image: 0 });
             }
+            console.log(shortsData)
             var url = Host + Endpoints.news
             const result = shortsID !== undefined ? await axios.put(url, shortsData) : await axios.post(url, shortsData);
 
             if (result.data.error === false) {
-                // redirect to edit page or dash board
+                setShortsDataError('');
                 setVisitShorts(window.location.host + "/read/" + result.data.data.slug + "/" + result.data.data._id);
                 setTimeout(function () {
                     console.log('Thanks')
                     history.push('/admin/edit-shorts');
                 }, 2000);
             } else {
-                // give error in alert
-
+                setShortsDataError({ postShortError: result.data.title });
             }
             window.scrollTo({
                 behavior: 'smooth',
                 top: 0
-            })
-        } else {
-            console.log("Please fill the form!")
+            });
         }
 
         setLoading(false);
     }
-    const uploadImage = async (e) => {
+    const uploadImage = (e) => {
         const file = e.target.files[0];
-        const base64Image = await convertToBase64(file);
-        setShortsData({ ...shortsData, image: base64Image, isImageSelected: true });
-    };
-    const countWords = (str, field) => {
+        createReader(file, function (width, height) {
+            if (file.size > 50000) {
+                alert("File size should be below 50 KB");
+                document.getElementById("unp-product-files").value = '';
+                return false;
+            } else if (width !== requiredWidth && height !== requiredHeight) {
+                alert(`Only ${requiredWidth} * ${requiredHeight} image allowed`);
+                document.getElementById("unp-product-files").value = '';
+                return false;
+            } else {
+                const base64Image = convertToBase64(file);
+                base64Image.then((imgResponse) => {
+                    setShortsData({ ...shortsData, image: imgResponse, isImageSelected: true });
+                })
+            }
+        })
+    }
 
+
+    // const stopWriting = (e) => {
+    //     if (e.target.keyCode == 46 || e.target.keyCode == 8) { // allow backspace & delete buttons
+    //         console.log('In IF');
+    //     } else {
+    //         console.log('In else');
+    //     }
+    // }
+    const countWords = (e, str, field) => {
+        console.log(e)
         str = str.replace(/(^\s*)|(\s*$)/gi, "");
         str = str.replace(/[ ]{2,}/gi, " ");
         str = str.replace(/\n /, "\n");
+
+        if (field === 'title' && str.split(' ').length >= wordCount.defaultTitle) {
+            e.preventDefault();
+        } else if (field === 'description' && str.split(' ').length >= wordCount.defaultDescription) {
+            e.preventDefault();
+
+        } else if (field === 'summary' && str.split(' ').length >= wordCount.defaultSummary) {
+            e.preventDefault();
+        }
 
         field === 'title' ? setWordCount({ ...wordCount, title: str.split(' ').length }) : field === 'description' ? setWordCount({ ...wordCount, description: str.split(' ').length }) : setWordCount({ ...wordCount, summary: str.split(' ').length });
 
@@ -139,6 +178,15 @@ const Shortsform = () => {
                             <div>Post has been addedd successfully <a target="_blank" rel="noreferrer" href={visitShorts} className="alert-link">View Post</a></div>
                         </div>
                     }
+                    {
+                        shortsDataError.postShortError &&
+                        <div className="alert alert-success d-flex" role="alert">
+                            <div className="alert-icon">
+                                <i className="ci-check-circle"></i>
+                            </div>
+                            <div>{shortsDataError.postShortError}</div>
+                        </div>
+                    }
                     <div
                         className="d-sm-flex flex-wrap justify-content-between align-items-center pb-2 ">
                         <h2 className="h3 py-2 me-2 text-center text-sm-start">
@@ -149,12 +197,17 @@ const Shortsform = () => {
                                 className="form-select me-2"
                                 name="status"
                                 onChange={(e) => handleChange(e)}
-                                value={shortsData && shortsData.post_status ? shortsData.post_status : ""}
+                                value={shortsData && shortsData.status ? shortsData.status : ""}
                             >
-                                <option value="">Select Status</option>
-                                <option value="publish">Publish</option>
-                                <option value="draft">Draft</option>
+                                <option value="">Select status</option>
+                                {
+                                    status.map((value, index) => (
+                                        <option value={value}>{uppercaseFirstLetter(value)}</option>
+                                    ))
+                                }
                             </select>
+                            <p className="text-danger fs-md">{shortsDataError.status}</p>
+
                         </div>
                     </div>
                     <form onSubmit={handleSubmit}>
@@ -168,13 +221,13 @@ const Shortsform = () => {
                                 type="text"
                                 id="unp-product-name"
                                 name="title"
-                                onChange={(e) => countWords(e.target.value, 'title')}
+                                onKeyPress={(e) => countWords(e, e.target.value, 'title')}
                                 defaultValue={shortsData && shortsData.title}
                             />
                             <div className="form-text">
                                 Total word count: <b>{wordCount.title}</b> words. Words left: <b>{wordCount.defaultTitle - wordCount.title}</b>
                             </div>
-                            <p className="fs-ms text-danger fs-md">{shortsDataError.title}</p>
+                            <p className="text-danger fs-md">{shortsDataError.title}</p>
                         </div>
                         <div className="mb-3 py-2">
                             <label className="form-label" htmlFor="unp-shortds-description">
@@ -185,14 +238,14 @@ const Shortsform = () => {
                                 rows="6"
                                 id="unp-shortds-description"
                                 name="description"
-                                onChange={(e) => countWords(e.target.value, 'description')}
+                                onKeyPress={(e) => countWords(e, e.target.value, 'description')}
                                 defaultValue={shortsData && shortsData.description}
 
                             ></textarea>
                             <div className="form-text">
                                 Total word count: <b>{wordCount.description}</b> words. Words left: <b>{wordCount.defaultDescription - wordCount.description}</b>
                             </div>
-                            <p className="fs-ms text-danger fs-md">{shortsDataError.description}</p>
+                            <p className="text-danger fs-md">{shortsDataError.description}</p>
 
                         </div>
                         <div className="mb-3 pb-2">
@@ -204,14 +257,14 @@ const Shortsform = () => {
                                 type="text"
                                 id="unp-product-name"
                                 name="summary"
-                                onChange={(e) => countWords(e.target.value, 'summary')}
+                                onKeyPress={(e) => countWords(e, e.target.value, 'summary')}
                                 defaultValue={shortsData && shortsData.summary}
 
                             />
                             <div className="form-text">
                                 Total word count: <b>{wordCount.summary}</b> words. Words left: <b>{wordCount.defaultSummary - wordCount.summary}</b>
                             </div>
-                            <p className="fs-ms text-danger fs-md">{shortsDataError.summary}</p>
+                            <p className="text-danger fs-md">{shortsDataError.summary}</p>
 
                         </div>
                         <div className="mb-3 pb-2">
@@ -228,9 +281,9 @@ const Shortsform = () => {
 
                             />
                             <div className="form-text">
-                                Use <Link to={{ pathname: 'https://tinypng.com/' }}>Tinypng</Link> or <Link to={{ pathname: 'https://compressimage.toolur.com/' }}>Toolur</Link> to compress images. it should be less than 50KB
+                                Use <Link to={{ pathname: 'https://tinypng.com/' }}>Tinypng</Link> or <Link to={{ pathname: 'https://compressimage.toolur.com/' }}>Toolur</Link> to compress images. it should be less than 50KB & Dimensions should be 600 * 358
                             </div>
-                            <p className="fs-ms text-danger fs-md">{shortsDataError.image}</p>
+                            <p className="text-danger fs-md">{shortsDataError.image}</p>
 
                         </div>
                         <div className="row">
@@ -257,7 +310,7 @@ const Shortsform = () => {
                                     Select read more brands!
 
                                 </div>
-                                <p className="fs-ms text-danger fs-md">{shortsDataError.read_at}</p>
+                                <p className="text-danger fs-md">{shortsDataError.read_at}</p>
 
                             </div>
                             <div className="col-sm-6 mb-3">
@@ -277,7 +330,7 @@ const Shortsform = () => {
                                     Please enter a valid URL
 
                                 </div>
-                                <p className="fs-ms text-danger fs-md">{shortsDataError.read_at_link}</p>
+                                <p className="text-danger fs-md">{shortsDataError.read_at_link}</p>
 
                             </div>
                         </div>
@@ -299,7 +352,7 @@ const Shortsform = () => {
                                 <div className="form-text">
                                     Select only from suggestions!
                                 </div>
-                                <p className="fs-ms text-danger fs-md">{shortsDataError.main_category}</p>
+                                <p className="text-danger fs-md">{shortsDataError.main_category}</p>
 
                             </div>
                             <div className="col-sm-6 mb-3">
@@ -316,9 +369,8 @@ const Shortsform = () => {
                                 </select>
                                 <div className="form-text">
                                     Select only from suggestions!
-
                                 </div>
-                                <p className="fs-ms text-danger fs-md">{shortsDataError.sub_categories}</p>
+                                <p className="text-danger fs-md">{shortsDataError.sub_categories}</p>
 
                             </div>
                         </div>
@@ -330,7 +382,7 @@ const Shortsform = () => {
                             <div className="form-text">
                                 Use trending keywords only to get traffic from Google! (Use <Link to={{ pathname: 'https://www.google.com/' }}>Google autocomplete</Link> feature to get trending keywords)
                             </div>
-                            <p className="fs-ms text-danger fs-md">{shortsDataError.short_tags}</p>
+                            <p className="text-danger fs-md">{shortsDataError.short_tags}</p>
 
                         </div>
 

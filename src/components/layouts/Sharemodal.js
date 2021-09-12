@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import Shorts from "../admin/sections/shorts/Shortslist";
 
 const Sharemodal = ({ shareShort }) => {
-  console.log(shareShort)
+
   const copyLinkRef = useRef();
 
   const copyLink = (shortsURL) => {

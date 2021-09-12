@@ -56,9 +56,9 @@ function Shorts() {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td>{value.title}</td>
-                                        <td>{value.title}</td>
+                                        <td>{value.main_category.name}</td>
                                         <td>{value.post_status}</td>
-                                        <td>{value.createdAt}</td>
+                                        <td>{new Date(value.createdAt).toDateString()}</td>
                                         <td>
                                             <Link className="mx-1" to={`/admin/edit-shorts/${value._id}`}><span className="ci-edit"></span></Link>
                                             <Link data-bs-toggle="modal" data-bs-target="#modalDefault" className="mx-1" to={"#"} onClick={() => getShortsDataByID(index)}>
