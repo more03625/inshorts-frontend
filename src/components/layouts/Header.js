@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthModal from './AuthModal';
-import { Host, Endpoints } from "../../helpers/comman_helper";
+import { Host, Endpoints, getUserToken, logout } from "../../helpers/comman_helper";
 import axios from "axios";
 const Header = () => {
 
@@ -42,17 +42,28 @@ const Header = () => {
                                 <div className="navbar-toolbar d-flex flex-shrink-0 align-items-center">
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span className="navbar-toggler-icon"></span></button><a className="navbar-tool navbar-stuck-toggler" href="#"><span className="navbar-tool-tooltip">Expand menu</span>
                                         <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-menu"></i></div></a>
-
-                                    <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
-                                        <div className="navbar-tool-icon-box">
-                                            <i className="navbar-tool-icon ci-user"></i>
-                                        </div>
-                                        <div className="navbar-tool-text ms-n3">
-                                            <small>Hello, Sign in</small>My Account
-                                        </div>
-                                    </a>
-
-
+                                    {console.log(getUserToken())}
+                                    {
+                                        getUserToken() === null ? (
+                                            <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
+                                                <div className="navbar-tool-icon-box">
+                                                    <i className="navbar-tool-icon ci-user"></i>
+                                                </div>
+                                                <div className="navbar-tool-text ms-n3">
+                                                    <small>Hello, Sign in</small>My Account
+                                                </div>
+                                            </a>
+                                        ) : (
+                                            <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#" onClick={logout}>
+                                                <div className="navbar-tool-icon-box">
+                                                    <i className="navbar-tool-icon ci-user"></i>
+                                                </div>
+                                                <div className="navbar-tool-text ms-n3">
+                                                    Logout
+                                                </div>
+                                            </a>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>

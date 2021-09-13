@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Host, Endpoints } from '../../helpers/comman_helper';
 import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+
 function AuthModal() {
     const [signUpData, setSignUpData] = useState(null);
     const [signUpDataError, setSignUpDataError] = useState({});
@@ -58,7 +60,7 @@ function AuthModal() {
         if (signInData === null || signInData.email === '' || signInData.email === undefined || !emailValidator) {
             setSignInDataError({ email: 'Please enter a valid email!' })
             return false;
-        } else if (signInData.password === '' || signInData.password === undefined) {
+        } else if (signInData.user_password === '' || signInData.user_password === undefined) {
             setSignInDataError({ password: 'Please enter your password!' })
             return false;
         } else {
@@ -70,16 +72,24 @@ function AuthModal() {
         e.preventDefault();
         if (isValidSigIn()) {
             setSignInDataError('');
-            const url = Host + Endpoints.signin;
+            const url = Host + Endpoints.login;
             const result = await axios.post(url, signInData);
-            console.log(result.data.user);
+            if (result.data.error === true) {
+                toast.error(result.data.title);
+            } else {
+                document.getElementsByClassName('btn-close')[0].click();
+                toast.success(result.data.title);
+                const { error, title, ...updatedObject } = result.data; // Delete error, title from result.data
+                setSignInData(result.data.data);
+                localStorage.setItem('newsdb', JSON.stringify(updatedObject)); // Convert Object to string
+            }
         }
         setLoading({ signIn: false });
-
     }
     return (
         <>
             <div className="modal fade" id="signin-modal" tabIndex="-1" role="dialog">
+                <Toaster />
                 <div className="modal-dialog modal-dialog-centered" role="document">
                     <div className="modal-content">
                         <div className="modal-header bg-secondary">
@@ -107,7 +117,7 @@ function AuthModal() {
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="si-password">Password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="si-password" name="password" placeholder="Enter your password" onChange={(e) => handleSignInChange(e)} />
+                                        <input className="form-control" type="password" id="si-password" name="user_password" placeholder="Enter your password" onChange={(e) => handleSignInChange(e)} />
                                         <label className="password-toggle-btn" aria-label="Show/hide password">
                                             <input className="password-toggle-check" type="checkbox" />
                                             <span className="password-toggle-indicator"></span>

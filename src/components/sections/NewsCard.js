@@ -27,7 +27,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
                     : ""
                 }
               >
-                {shortsData.main_category.name}) {shortsData.title}
+                {shortsData.title}
               </Link>
             </h2>
             <p className="news-additional-info" title={shortsData.title}>
