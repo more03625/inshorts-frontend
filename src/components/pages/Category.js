@@ -8,6 +8,8 @@ import { Host, Endpoints } from '../../helpers/comman_helper';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import Loading from '../sections/Loading';
+import FollowCategoryCard from '../sections/FollowCategoryCard';
+
 function Category() {
     const [shorts, setShorts] = useState([]);
     const [page, setPage] = useState(1);
@@ -15,7 +17,7 @@ function Category() {
     const [hasMore, setHasMore] = useState(true);
     const [size, setSize] = useState(2);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
-    const { slug } = useParams();
+    const { slug, id } = useParams();
 
     const getShortsByCategory = async (page) => {
         if (hasMore === true) {
@@ -25,18 +27,12 @@ function Category() {
             if (result.data.error === true) {
                 console.log('there are some errors!')
             } else {
-                console.log(result.data.data)
-                // result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
+                result.data.data.posts.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
                 setLoading(false);
             }
         }
     }
-
     useEffect(() => {
-        window.scrollTo({
-            behavior: "smooth",
-            top: 0
-        });
         getShortsByCategory(page, size);
     }, [page, slug]);
     return (
@@ -48,6 +44,7 @@ function Category() {
                     <div className="row pt-5 mt-md-2">
                         <div className="col-lg-3"></div>
                         <div className="col-lg-6">
+                            <FollowCategoryCard id={id} />
                             {
                                 shorts.map((shortsData, index) => (
                                     <NewsCard key={index} shortsData={shortsData} setShareShort={setShareShort} />

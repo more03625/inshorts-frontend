@@ -20,7 +20,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
               <Link
                 to={
                   shortsData && shortsData.title
-                    ? "read/" +
+                    ? "/read/" +
                     convertToSlug(shortsData.title) +
                     "/" +
                     shortsData._id

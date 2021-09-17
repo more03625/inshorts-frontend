@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams, useHistory } from 'react-router-dom'
-import { Endpoints, Host, convertToBase64, convertToSlug, uppercaseFirstLetter, createReader } from '../../../helpers/comman_helper';
+import { Endpoints, Host, convertToBase64, convertToSlug, uppercaseFirstLetter, createReader, getUserToken } from '../../../helpers/comman_helper';
 import axios from 'axios';
 import { status, readAt } from '../../../data/select.json';
 const Shortsform = () => {
@@ -20,7 +20,13 @@ const Shortsform = () => {
     const getCategories = async () => {
         var url = Host + Endpoints.category
         const result = await axios.get(url);
-        setCategories(result.data.data);
+        console.log();
+        if (result.data.error === true) {
+            console.log('There is an error! please refresh page!')
+        } else {
+            setCategories(result.data.data.detail);
+
+        }
     }
 
     const handleChange = (e) => {
@@ -82,13 +88,17 @@ const Shortsform = () => {
             }
             console.log(shortsData)
             var url = Host + Endpoints.news
-            const result = shortsID !== undefined ? await axios.put(url, shortsData) : await axios.post(url, shortsData);
+            const result = shortsID !== undefined ? await axios.put(url, shortsData) : await axios.post(url, shortsData, {
+                headers: {
+                    token: getUserToken().token
+                }
+            });
 
             if (result.data.error === false) {
                 setShortsDataError('');
                 setVisitShorts(window.location.host + "/read/" + result.data.data.slug + "/" + result.data.data._id);
                 setTimeout(function () {
-                    console.log('Thanks')
+
                     history.push('/admin/edit-shorts');
                 }, 2000);
             } else {
@@ -99,7 +109,6 @@ const Shortsform = () => {
                 top: 0
             });
         }
-
         setLoading(false);
     }
     const uploadImage = (e) => {

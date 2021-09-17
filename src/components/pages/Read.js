@@ -5,7 +5,6 @@ import Footer from "../layouts/Footer";
 import Breadcrumb from "../layouts/Breadcrumb";
 import NewsCard from "../sections/NewsCard";
 import { useParams } from "react-router-dom";
-import AuthorCard from "../sections/AuthorCard";
 import Loading from "../sections/Loading";
 import axios from "axios";
 import { Host, Endpoints } from "../../helpers/comman_helper";
@@ -55,7 +54,7 @@ const Read = () => {
                                 <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} /> :
                                 <>
                                     <div className="col-lg-6">
-                                        <AuthorCard />
+
                                         <NewsCard shortsData={shorts} setShareShort={setShareShort} />
                                     </div>
                                     <Sidebar />

@@ -13,7 +13,7 @@ const Header = () => {
         if (result.data.error === true) {
             alert('Recived error| Please reload the app')
         } else {
-            setCategories(result.data.data);
+            setCategories(result.data.data.detail);
         }
     }
     useEffect(() => {
@@ -42,7 +42,6 @@ const Header = () => {
                                 <div className="navbar-toolbar d-flex flex-shrink-0 align-items-center">
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span className="navbar-toggler-icon"></span></button><a className="navbar-tool navbar-stuck-toggler" href="#"><span className="navbar-tool-tooltip">Expand menu</span>
                                         <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-menu"></i></div></a>
-                                    {console.log(getUserToken())}
                                     {
                                         getUserToken() === null ? (
                                             <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">

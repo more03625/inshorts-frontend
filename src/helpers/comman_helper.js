@@ -5,6 +5,7 @@ export const Endpoints = {
     category: '/category',
     signup: '/api/signup',
     login: '/api/login',
+    follow: '/api/user-follow'
 }
 export const convertToSlug = (shortsTitle) => {
     return shortsTitle
@@ -44,8 +45,8 @@ export const createReader = (file, whenReady) => {
     reader.readAsDataURL(file);
 }
 export const getUserToken = () => {
-    return JSON.parse(localStorage.getItem('newsdb')); // Convert String to Json Object
+    return JSON.parse(localStorage.getItem('newsdb-auth')); // Convert String to Json Object
 }
 export const logout = () => {
-    localStorage.removeItem('newsdb')
+    localStorage.removeItem('newsdb-auth')
 }

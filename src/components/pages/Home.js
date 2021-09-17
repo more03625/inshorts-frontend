@@ -24,8 +24,7 @@ const Home = () => {
             if (result.data.error === true) {
                 console.log('there are some errors!')
             } else {
-                console.log(result.data.data.length)
-                result.data.data.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data]);
+                result.data.data.detail.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.detail]);
                 setLoading(false);
             }
         }

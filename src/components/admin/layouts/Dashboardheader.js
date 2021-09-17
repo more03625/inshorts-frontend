@@ -1,5 +1,4 @@
 import React from 'react'
-import avtar from '../../../../src/assets/images/avtar.png'
 import { Host } from '../../../helpers/comman_helper'
 function Dashboardheader() {
     return (

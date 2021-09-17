@@ -47,8 +47,8 @@
         {
             "_id":"613b52208a058326c493b6b9",
             "image":"/uploads/user-profile/8kJEEL5K.jpg",
-            "name":"Rahul More",
-            "userName": "rahulmore",
+            "name":"Business",
+            "slug": "business",
             "shortsCount":50,
             "followCount":100
         }

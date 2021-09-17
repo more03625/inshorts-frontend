@@ -81,7 +81,7 @@ function AuthModal() {
                 toast.success(result.data.title);
                 const { error, title, ...updatedObject } = result.data; // Delete error, title from result.data
                 setSignInData(result.data.data);
-                localStorage.setItem('newsdb', JSON.stringify(updatedObject)); // Convert Object to string
+                localStorage.setItem('newsdb-auth', JSON.stringify(updatedObject)); // Convert Object to string
             }
         }
         setLoading({ signIn: false });
