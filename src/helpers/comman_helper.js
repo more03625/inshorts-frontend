@@ -8,7 +8,8 @@ export const Endpoints = {
     category: '/category',
     signup: '/api/register',
     login: '/api/login',
-    follow: '/api/user-follow'
+    follow: '/api/user-follow',
+    dashboard: '/news/admin/dashboard',
 }
 export const convertToSlug = (shortsTitle) => {
     return shortsTitle

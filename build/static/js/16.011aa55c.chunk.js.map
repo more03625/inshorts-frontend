@@ -1,1 +1,0 @@
-{"version":3,"sources":["components/admin/pages/Login.js"],"names":["Login"],"mappings":"8HAAA,uBAUeA,UARf,WACI,OACI","file":"static/js/16.011aa55c.chunk.js","sourcesContent":["import React from 'react'\r\n\r\nfunction Login() {\r\n    return (\r\n        <div>\r\n\r\n        </div>\r\n    )\r\n}\r\n\r\nexport default Login;\r\n"],"sourceRoot":""}

@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from '../../assets/images/news-db-pc-light-logo.png'
+import { Link } from "react-router-dom";
 const Footer = () => {
     return (
         <>
@@ -10,31 +11,19 @@ const Footer = () => {
                             <div className="widget widget-links widget-light pb-2 mb-4">
                                 <h3 className="widget-title text-light">Shop departments</h3>
                                 <ul className="widget-list">
-                                    <li className="widget-list-item"><a className="widget-list-link" href="#">Sneakers &amp; Athletic</a></li>
-
+                                    <li className="widget-list-item">
+                                        <Link className="widget-list-link" to={'#'}>About Us</Link>
+                                        <Link className="widget-list-link" to={'#'}>Contact Us</Link>
+                                        <Link className="widget-list-link" to={'#'}>Privacy Policy and Disclaimer</Link>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-md-4 col-sm-6">
-                            <div className="widget widget-links widget-light pb-2 mb-4">
-                                <h3 className="widget-title text-light">Account &amp; shipping info</h3>
-                                <ul className="widget-list">
-                                    <li className="widget-list-item"><a className="widget-list-link" href="#">Your account</a></li>
-
-                                </ul>
-                            </div>
-                            <div className="widget widget-links widget-light pb-2 mb-4">
-                                <h3 className="widget-title text-light">About us</h3>
-                                <ul className="widget-list">
-                                    <li className="widget-list-item"><a className="widget-list-link" href="#">About company</a></li>
-
-                                </ul>
-                            </div>
-                        </div>
+                        {/*
                         <div className="col-md-4">
                             <div className="widget pb-2 mb-4">
                                 <h3 className="widget-title text-light pb-1">Stay informed</h3>
-                                <form className="subscription-form validate" action="https://studio.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=29ca296126" method="post" name="mc-embedded-subscribe-form" target="_blank" noValidate>
+                                <form className="subscription-form validate" action="#" method="post" name="mc-embedded-subscribe-form" target="_blank" noValidate>
                                     <div className="input-group flex-nowrap"><i className="ci-mail position-absolute top-50 translate-middle-y text-muted fs-base ms-3"></i>
                                         <input className="form-control rounded-start" type="email" name="EMAIL" placeholder="Your email" required />
                                         <button className="btn btn-primary" type="submit" name="subscribe">Subscribe*</button>
@@ -48,6 +37,7 @@ const Footer = () => {
                                 </form>
                             </div>
                         </div>
+                        */}
                     </div>
                 </div>
                 <div className="pt-5 bg-darker">

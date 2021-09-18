@@ -3,7 +3,9 @@ import Header from '../layouts/Header';
 import Sidebar from '../layouts/Sidebar';
 import Dashboardheader from '../layouts/Dashboardheader';
 import DashboardData from '../sections/DashboardData';
+
 function Dashboard() {
+
     return (
         <>
             <Header />

@@ -16,7 +16,7 @@ const Breadcrumb = ({ page, title }) => {
                                 {page}
                             </li>
                             <li className="breadcrumb-item text-nowrap active" aria-current="page">
-                                {title}
+                                {title && title.slice(0, 35) + "..."}
                             </li>
                         </ol>
                     </nav>
