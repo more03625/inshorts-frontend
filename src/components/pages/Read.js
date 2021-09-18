@@ -19,10 +19,13 @@ const Read = () => {
     const [hasMore, setHasMore] = useState(true);
     const [notFound, setNotFound] = useState(false);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
+    const [similarShorts, setSimilarShorts] = useState([]);
+    // const [mainCategory, setMainCategory] = useState(null);
 
     var categoryName = shorts && shorts.main_category
     // current : newsdID
-    const getShorts = async (page) => {
+
+    const getShorts = async () => {
         if (hasMore === true) {
             setLoading(true);
             const url = Host + Endpoints.news + `/${newsID}`;
@@ -30,17 +33,43 @@ const Read = () => {
             if (result.data.error === true) {
                 console.log('there are some errors!');
             } else {
-                result.data.data === null ? setNotFound(true) : (result.data.data.length === 0) ? setHasMore(false) : setShorts(result.data.data); setLoading(false);
+                // console.log(result.data.data.main_category)
+                getShortsByCategory(result.data.data.main_category.slug)
+                // setMainCategory(result.data.data.main_category.slug);
+                setShorts(result.data.data);
+                // result.data.data === null ? setNotFound(true) : (result.data.data.length === 0) ? setHasMore(false) : setShorts(result.data.data); setLoading(false);
             }
         }
     }
+    const getShortsByCategory = async (mainCategory) => {
+        console.log("mainCategory ===> ", mainCategory);
+        if (hasMore === true) {
+            setLoading(true);
+            const url = Host + Endpoints.category + `/${mainCategory}?page=${page}&size=${size}`;
+            const result = await axios.get(url);
+            if (result.data.error === true) {
+                console.log('there are some errors!')
+            } else {
+                result.data.data.posts.length === 0 ? setHasMore(false) : setSimilarShorts([...similarShorts, ...result.data.data.posts]);
+                setLoading(false);
+            }
+        }
+    }
+
+
+
+    useEffect(() => {
+        getShorts();
+    }, [newsID]);
+
+
     useEffect(() => {
         window.scrollTo({
             behavior: "smooth",
             top: 0
         });
-        getShorts(page);
-    }, [newsID]);
+        getShortsByCategory();
+    }, [page]);
     return (
         <>
             <Header />
@@ -56,6 +85,12 @@ const Read = () => {
                                     <div className="col-lg-6">
 
                                         <NewsCard shortsData={shorts} setShareShort={setShareShort} />
+
+                                        {/*For similar Shorts*/}
+                                        <NewsCard shortsData={similarShorts} setShareShort={setShareShort} />
+
+                                        <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />
+
                                     </div>
                                     <Sidebar />
                                     <Sharemodal shareShort={shareShort} />

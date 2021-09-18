@@ -24,7 +24,7 @@ function App() {
           <Route path="/read/:slug/:newsID" component={Read}></Route>
           <Route path="/author/:authorUserName" component={Author}></Route>
           <Route path="informational/:slug/" component={Informational}></Route>
-          <Route path="/category/:slug/:id" component={Category}></Route>
+          <Route path="/category/:slug/:newsID" component={Category}></Route>
 
           {/* Admin */}
           <Route path="/admin/login" component={Login}></Route>

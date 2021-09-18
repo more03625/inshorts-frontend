@@ -3,7 +3,7 @@ import React from 'react'
 const Loading = ({ loading, hasMore, setPage, page }) => {
     if (hasMore !== false) {
         window.onscroll = function () {
-            if (window.pageYOffset + window.innerHeight >= (document.documentElement.scrollHeight - 400)) {
+            if (window.pageYOffset + window.innerHeight >= (document.documentElement.scrollHeight - 450)) {
                 setPage(page + 1);
             }
         }

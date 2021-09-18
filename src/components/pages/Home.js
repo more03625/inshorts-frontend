@@ -7,14 +7,14 @@ import { Host, Endpoints } from "../../helpers/comman_helper";
 import axios from "axios";
 import Loading from "../sections/Loading";
 import Sharemodal from '../layouts/Sharemodal';
-import { topCategories } from '../../data/dummydata.json';
 const Home = () => {
 
     const [shorts, setShorts] = useState([]);
     const [page, setPage] = useState(1);
+    const [size, setSize] = useState(10);
+
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
-    const [size, setSize] = useState(10);
 
     const getShorts = async (page) => {
         if (hasMore === true) {

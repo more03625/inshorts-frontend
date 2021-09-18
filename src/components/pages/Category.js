@@ -17,13 +17,14 @@ function Category() {
     const [hasMore, setHasMore] = useState(true);
     const [size, setSize] = useState(2);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
-    const { slug, id } = useParams();
+    const { slug, newsID } = useParams();
 
     const getShortsByCategory = async (page) => {
         if (hasMore === true) {
             setLoading(true);
             const url = Host + Endpoints.category + `/${slug}?page=${page}&size=${size}`;
             const result = await axios.get(url);
+
             if (result.data.error === true) {
                 console.log('there are some errors!')
             } else {
@@ -32,9 +33,11 @@ function Category() {
             }
         }
     }
+
     useEffect(() => {
-        getShortsByCategory(page, size);
-    }, [page, slug]);
+        getShortsByCategory(page);
+    }, [newsID, page]);
+
     return (
         <>
             <Header />
@@ -44,7 +47,7 @@ function Category() {
                     <div className="row pt-5 mt-md-2">
                         <div className="col-lg-3"></div>
                         <div className="col-lg-6">
-                            <FollowCategoryCard id={id} />
+                            <FollowCategoryCard id={newsID} />
                             {
                                 shorts.map((shortsData, index) => (
                                     <NewsCard key={index} shortsData={shortsData} setShareShort={setShareShort} />

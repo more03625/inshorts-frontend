@@ -6,16 +6,30 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 const FollowCategoryCard = (props) => {
     var user = authorCardData[0];
-
+    const [followBtn, setFollowBtn] = useState('Follow');
+    const [loading, setLoading] = useState(false);
     const followAction = async () => {
+        setLoading(true);
         var followInfo = {
             categoryId: props.id,
             userId: getUserToken().data._id
         }
         var url = Host + Endpoints.follow
-        const result = await axios.post(url, followInfo);
-        console.log(result);
-
+        const result = await axios.post(url, followInfo, {
+            headers: {
+                token: getUserToken().token
+            }
+        });
+        if (result.data.error === true) {
+            console.log('Please reload the app!')
+        } else {
+            if (result.data.title === 'followed') {
+                setFollowBtn('Following');
+            } else {
+                setFollowBtn('Follow');
+            }
+        }
+        setLoading(false);
     }
 
     return (
@@ -37,7 +51,7 @@ const FollowCategoryCard = (props) => {
                         </a>
                     ) : (
                         <button className="btn btn-primary btn-sm" onClick={followAction}>
-                            Follow <span>{user.followCount}</span>
+                            {followBtn}  {loading === true ? <i className="fs-lg me-2 spinner-border spinner-border-sm" role="status"></i> : ''}
                         </button>
                     )
                 }
