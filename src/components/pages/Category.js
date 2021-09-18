@@ -46,7 +46,7 @@ function Category() {
                 <div className="container-fluid">
                     <div className="row pt-5 mt-md-2">
                         <div className="col-lg-3"></div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-6 p-0 m-0">
                             <FollowCategoryCard id={newsID} shorts={shorts} slug={slug} />
                             {
                                 shorts.map((shortsData, index) => (

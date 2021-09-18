@@ -86,7 +86,7 @@ const Read = () => {
                             notFound === true ? <Notfound /> : shorts === undefined ?
                                 <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} /> :
                                 <>
-                                    <div className="col-lg-6">
+                                    <div className="col-lg-6 p-0 m-0">
 
                                         <NewsCard shortsData={shorts} setShareShort={setShareShort} />
 

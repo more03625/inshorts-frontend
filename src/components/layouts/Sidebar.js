@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { topCategories, trendingPosts } from '../.././data/dummydata.json';
 import { Host, convertToSlug, Endpoints, uppercaseFirstLetter } from "../../helpers/comman_helper";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -47,7 +46,7 @@ const Sidebar = () => {
                                     <li key={index} className="widget-list-item">
                                         <Link className="widget-list-link d-flex justify-content-between align-items-center" to={`/category/${value.slug}/${value._id}`}>
                                             <span>{value.name}</span>
-                                            <span className="fs-xs text-muted ms-3">{value.postCount}</span>
+                                            <span className="fs-xs text-muted ms-3">{value.postCount} Shorts</span>
                                         </Link>
                                     </li>
                                 ))
