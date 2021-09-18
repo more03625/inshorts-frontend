@@ -27,8 +27,10 @@ const Footer = () => {
                         <hr className="hr-light mb-5" />
                         <div className="row pb-2">
                             <div className="col-md-6 text-center text-md-start mb-4">
-                                <div className="text-nowrap mb-4"><a className="d-inline-block align-middle mt-n1 me-3" href="#">
-                                    <img className="d-block" src="../../../assets/images/logo/NewsDB_footer.png" width="117" alt="Cartzilla" /></a>
+                                <div className="text-nowrap mb-4">
+                                    <Link className="d-inline-block align-middle mt-n1 me-3" to='/'>
+                                        <img className="d-block" src="../../../assets/images/logo/NewsDB_footer.png" width="117" alt="Cartzilla" />
+                                    </Link>
                                 </div>
                             </div>
                             <div className="col-md-6 text-center text-md-end mb-4">
@@ -53,10 +55,10 @@ const Footer = () => {
                             <i className="ci-sign-in"></i></span>
                         <span className="handheld-toolbar-label">Sidebar</span>
                     </a>
-                    <a className="d-table-cell handheld-toolbar-item" href="account-wishlist.html">
+                    <a className="d-table-cell handheld-toolbar-item" href="#signin-modal" data-bs-toggle="modal">
                         <span className="handheld-toolbar-icon"><i className="ci-heart"></i>
                         </span>
-                        <span className="handheld-toolbar-label">Wishlist</span>
+                        <span className="handheld-toolbar-label">Login</span>
                     </a>
                 </div>
             </div>

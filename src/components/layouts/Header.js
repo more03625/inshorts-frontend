@@ -46,28 +46,35 @@ const Header = () => {
                                         <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-menu"></i></div></a>
                                     {
                                         getUserToken() !== null || isLoggedIn === true ? (
-                                            <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#" onClick={logout}>
-                                                <div className="navbar-tool-icon-box">
-                                                    <i className="navbar-tool-icon ci-user"></i>
-                                                </div>
-                                                <div className="navbar-tool-text ms-n3">
-                                                    Logout
-                                                </div>
-                                            </a>
+                                            <>
+                                                <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#" onClick={logout}>
+                                                    <div className="navbar-tool-icon-box">
+                                                        <i className="navbar-tool-icon ci-user"></i>
+                                                    </div>
+                                                    <div className="navbar-tool-text ms-n3">
+                                                        Logout
+                                                    </div>
+                                                </a>
+                                                <Link to={'/admin/dashboard'} className="btn btn-primary btn-sm mx-3">Add Shorts</Link>
+
+                                            </>
 
                                         ) : (
-                                            <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
-                                                <div className="navbar-tool-icon-box">
-                                                    <i className="navbar-tool-icon ci-user"></i>
-                                                </div>
-                                                <div className="navbar-tool-text ms-n3">
-                                                    <small>Hello, Sign in</small>My Account
-                                                </div>
-                                            </a>
+                                            <>
+                                                <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
+                                                    <div className="navbar-tool-icon-box">
+                                                        <i className="navbar-tool-icon ci-user"></i>
+                                                    </div>
+                                                    <div className="navbar-tool-text ms-n3">
+                                                        <small>Hello, Sign in</small>My Account
+                                                    </div>
+                                                </a>
+                                                <a href="#signin-modal" data-bs-toggle="modal" className="btn btn-primary btn-sm mx-3">Add Shorts</a>
+                                            </>
                                         )
                                     }
 
-                                    <Link to={'/admin/dashboard'} className="btn btn-primary btn-sm mx-3">Add Shorts</Link>
+
                                 </div>
                             </div>
                         </div>
