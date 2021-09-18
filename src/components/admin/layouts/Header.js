@@ -36,7 +36,7 @@ const Header = () => {
                                     />
                                 </a>
                                 <a className="navbar-tool-text ms-n1" href="#">
-                                    <small>{getUserToken().data.name}</small> #Editors
+                                    <small>{getUserToken() !== null ? getUserToken().data.name : ''}</small> #Editors
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-end">
                                     <div style={{ minWidth: "14rem" }}>

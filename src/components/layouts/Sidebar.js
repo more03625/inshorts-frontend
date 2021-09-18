@@ -75,7 +75,9 @@ const Sidebar = () => {
                         }
                     </div>
                     <div className="bg-size-cover bg-position-center rounded-3 py-5 mx-lg-2">
-                        <img src={Host + "/uploads/ad-banner/0QPA5MX1.jpg"} />
+                        <a href="https://amzn.to/3ubMFr1" target="_blank">
+                            <img src={Host + "/uploads/ad-banner/0QPA5MX1.jpg"} />
+                        </a>
                         <div className="py-5 px-4 text-center"></div>
                     </div>
                 </div>

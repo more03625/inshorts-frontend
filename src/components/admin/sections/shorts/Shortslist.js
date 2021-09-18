@@ -67,7 +67,7 @@ function Shorts() {
                                     <tr key={index}>
                                         <th scope="row">{index + 1}</th>
                                         <td>
-                                            <Link to={'#'} onClick={() => redirectToView(value.slug, value._id)}>
+                                            <Link target="_blank" to={{ pathname: window.location.protocol + "//" + window.location.host + `/read/${value.slug}/${value._id}` }}>
                                                 {value.title.slice(0, 40) + "..."}
                                             </Link>
                                         </td>

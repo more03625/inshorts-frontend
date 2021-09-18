@@ -12,32 +12,14 @@ const Footer = () => {
                                 <h3 className="widget-title text-light">Shop departments</h3>
                                 <ul className="widget-list">
                                     <li className="widget-list-item">
-                                        <Link className="widget-list-link" to={'#'}>About Us</Link>
-                                        <Link className="widget-list-link" to={'#'}>Contact Us</Link>
-                                        <Link className="widget-list-link" to={'#'}>Privacy Policy and Disclaimer</Link>
+                                        <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/about-us' }}>About us</Link>
+                                        <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/contact-us' }}>Contact us</Link>
+                                        <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/privacy-policy-and-disclaimer' }}>Privacy Policy and Disclaimer</Link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        {/*
-                        <div className="col-md-4">
-                            <div className="widget pb-2 mb-4">
-                                <h3 className="widget-title text-light pb-1">Stay informed</h3>
-                                <form className="subscription-form validate" action="#" method="post" name="mc-embedded-subscribe-form" target="_blank" noValidate>
-                                    <div className="input-group flex-nowrap"><i className="ci-mail position-absolute top-50 translate-middle-y text-muted fs-base ms-3"></i>
-                                        <input className="form-control rounded-start" type="email" name="EMAIL" placeholder="Your email" required />
-                                        <button className="btn btn-primary" type="submit" name="subscribe">Subscribe*</button>
-                                    </div>
 
-                                    <div style={{ position: "absolute", left: "-5000px" }} aria-hidden="true">
-                                        <input className="subscription-form-antispam" type="text" name="b_c7103e2c981361a6639545bd5_29ca296126" tabIndex="-1" />
-                                    </div>
-                                    <div className="form-text text-light opacity-50">*Subscribe to our newsletter to receive early discount offers, updates and new products info.</div>
-                                    <div className="subscription-status"></div>
-                                </form>
-                            </div>
-                        </div>
-                        */}
                     </div>
                 </div>
                 <div className="pt-5 bg-darker">

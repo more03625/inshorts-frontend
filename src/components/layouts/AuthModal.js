@@ -3,12 +3,13 @@ import { Host, Endpoints } from '../../helpers/comman_helper';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
-function AuthModal() {
+function AuthModal({ setIsLoggedIn }) {
     const [signUpData, setSignUpData] = useState(null);
     const [signUpDataError, setSignUpDataError] = useState({});
     const [loading, setLoading] = useState({ signIn: false, signUp: false });
     const [signInData, setSignInData] = useState(null);
     const [signInDataError, setSignInDataError] = useState({});
+
 
     const handleSignupChange = (e) => {
         setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
@@ -90,6 +91,7 @@ function AuthModal() {
                     toast.error(result.data.title);
                 } else {
                     document.getElementsByClassName('btn-close')[0].click();
+                    setIsLoggedIn(true);
                     toast.success(result.data.title);
                     const { error, title, ...updatedObject } = result.data; // Delete error, title from result.data
                     setSignInData(result.data.data);
@@ -102,6 +104,15 @@ function AuthModal() {
             }
         }
         setLoading({ signIn: false });
+    }
+    const fillcreds = (userType) => {
+        setSignInData(null);
+
+        if (userType === 'admin') {
+            setSignInData({ ...signInData, email: 'rahulmore@gmail.com', user_password: '123456789' });
+        } else if (userType === 'normal') {
+            setSignInData({ ...signInData, email: 'yogeshmore@gmail.com', user_password: '123456789' });
+        }
     }
     return (
         <>
@@ -128,13 +139,13 @@ function AuthModal() {
                             <form className="tab-pane fade show active" autoComplete="off" id="signin-tab" onSubmit={handleSignIn}>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="si-email">Email address</label>
-                                    <input className="form-control" type="text" id="si-email" name="email" placeholder="Enter your email" onChange={(e) => handleSignInChange(e)} />
+                                    <input className="form-control" type="text" id="si-email" name="email" placeholder="Enter your email" value={signInData && signInData.email} onChange={(e) => handleSignInChange(e)} />
                                     <div className="text-danger">{signInDataError.email}</div>
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="si-password">Password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="si-password" name="user_password" placeholder="Enter your password" onChange={(e) => handleSignInChange(e)} />
+                                        <input className="form-control" type="password" id="si-password" name="user_password" placeholder="Enter your password" value={signInData && signInData.user_password} onChange={(e) => handleSignInChange(e)} />
                                         <label className="password-toggle-btn" aria-label="Show/hide password">
                                             <input className="password-toggle-check" type="checkbox" />
                                             <span className="password-toggle-indicator"></span>
@@ -143,11 +154,17 @@ function AuthModal() {
                                     </div>
                                 </div>
                                 <div className="mb-3 d-flex flex-wrap justify-content-between">
+
                                     <div className="form-check mb-2">
-                                        <input className="form-check-input" type="checkbox" id="si-remember" />
-                                        <label className="form-check-label" htmlFor="si-remember">Remember me</label>
+                                        <input className="form-check-input" type="radio" name="cred" id="si-admin" onClick={() => fillcreds('admin')} />
+                                        <label className="form-check-label" htmlFor="si-admin">Admin Creds</label>
                                     </div>
-                                    <a className="fs-sm" href="#">Forgot password?</a>
+
+                                    <div className="fs-sm form-check mb-2">
+                                        <input className="form-check-input" type="radio" name="cred" id="si-normal" onClick={() => fillcreds('normal')} />
+                                        <label className="form-check-label" htmlFor="si-normal">Normal Creds</label>
+                                    </div>
+
                                 </div>
                                 <button className="btn btn-primary btn-shadow d-block w-100" type="submit" disabled={loading.signIn}>Sign in
                                     {

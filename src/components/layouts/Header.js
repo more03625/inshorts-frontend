@@ -7,7 +7,7 @@ import axios from "axios";
 const Header = () => {
 
     const [categories, setCategories] = useState([]);
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const getCategories = async () => {
         var url = Host + Endpoints.category
         const result = await axios.get(url);
@@ -24,7 +24,7 @@ const Header = () => {
     return (
         <>
             {/*<body className="toolbar-enabled">*/}
-            <AuthModal />
+            <AuthModal setIsLoggedIn={setIsLoggedIn} />
             <Toaster />
             <main className="page-wrapper">
                 <header className="shadow-sm">
@@ -35,26 +35,17 @@ const Header = () => {
                                     <img src={Host + '/uploads/logo/news-db-pc-light-logo.png'} width="142" alt="NewsDB" />
 
                                 </Link>
-                                <a className="navbar-brand d-sm-none flex-shrink-0 me-2" to="/">
+                                <Link className="navbar-brand d-sm-none flex-shrink-0 me-2" to="/">
                                     <img src={Host + '/uploads/logo/news-db-mobile-light-logo.png'} width="74" alt="NewsDB Mobile" />
-                                </a>
+                                </Link>
                                 <div className="input-group d-none d-lg-flex mx-4">
-                                    <input className="form-control rounded-end pe-5" type="text" placeholder="Search for products" /><i className="ci-search position-absolute top-50 end-0 translate-middle-y text-muted fs-base me-3"></i>
+                                    <input className="form-control rounded-end pe-5" type="text" placeholder="Search for shorts" /><i className="ci-search position-absolute top-50 end-0 translate-middle-y text-muted fs-base me-3"></i>
                                 </div>
                                 <div className="navbar-toolbar d-flex flex-shrink-0 align-items-center">
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"><span className="navbar-toggler-icon"></span></button><a className="navbar-tool navbar-stuck-toggler" href="#"><span className="navbar-tool-tooltip">Expand menu</span>
                                         <div className="navbar-tool-icon-box"><i className="navbar-tool-icon ci-menu"></i></div></a>
                                     {
-                                        getUserToken() === null ? (
-                                            <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
-                                                <div className="navbar-tool-icon-box">
-                                                    <i className="navbar-tool-icon ci-user"></i>
-                                                </div>
-                                                <div className="navbar-tool-text ms-n3">
-                                                    <small>Hello, Sign in</small>My Account
-                                                </div>
-                                            </a>
-                                        ) : (
+                                        getUserToken() !== null || isLoggedIn === true ? (
                                             <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#" onClick={logout}>
                                                 <div className="navbar-tool-icon-box">
                                                     <i className="navbar-tool-icon ci-user"></i>
@@ -63,8 +54,20 @@ const Header = () => {
                                                     Logout
                                                 </div>
                                             </a>
+
+                                        ) : (
+                                            <a className="navbar-tool ms-1 ms-lg-0 me-n1 me-lg-2" href="#signin-modal" data-bs-toggle="modal">
+                                                <div className="navbar-tool-icon-box">
+                                                    <i className="navbar-tool-icon ci-user"></i>
+                                                </div>
+                                                <div className="navbar-tool-text ms-n3">
+                                                    <small>Hello, Sign in</small>My Account
+                                                </div>
+                                            </a>
                                         )
                                     }
+
+                                    <Link to={'/admin/dashboard'} className="btn btn-primary btn-sm mx-3">Add Shorts</Link>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +75,7 @@ const Header = () => {
                             <div className="container">
                                 <div className="collapse navbar-collapse" id="navbarCollapse">
                                     <div className="input-group d-lg-none my-3"><i className="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
-                                        <input className="form-control rounded-start" type="text" placeholder="Search for products" />
+                                        <input className="form-control rounded-start" type="text" placeholder="Search for shorts" />
                                     </div>
                                     <ul className="navbar-nav navbar-mega-nav pe-lg-2 me-lg-2">
 
@@ -85,13 +88,13 @@ const Header = () => {
                                                         <div className="widget widget-links mb-4">
                                                             <ul className="widget-list">
                                                                 <li className="widget-list-item">
-                                                                    <Link className="widget-list-link" to={'#'}>About us</Link>
+                                                                    <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/about-us' }}>About us</Link>
                                                                 </li>
                                                                 <li className="widget-list-item">
-                                                                    <Link className="widget-list-link" to={'#'}>Contact us</Link>
+                                                                    <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/contact-us' }}>Contact us</Link>
                                                                 </li>
                                                                 <li className="widget-list-item">
-                                                                    <Link className="widget-list-link" to={'#'}>Privacy Policy and Disclaimer</Link>
+                                                                    <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/privacy-policy-and-disclaimer' }}>Privacy Policy and Disclaimer</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
