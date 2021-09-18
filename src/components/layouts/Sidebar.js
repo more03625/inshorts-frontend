@@ -75,8 +75,8 @@ const Sidebar = () => {
                             ))
                         }
                     </div>
-                    <div className="bg-size-cover bg-position-center rounded-3 py-5 mx-lg-2"
-                        style={{ backgroundImage: 'url("http://localhost:5254/uploads/ad-banner/0QPA5MX1.jpg")' }}>
+                    <div className="bg-size-cover bg-position-center rounded-3 py-5 mx-lg-2">
+                        <img src={Host + "/uploads/ad-banner/0QPA5MX1.jpg"} />
                         <div className="py-5 px-4 text-center"></div>
                     </div>
                 </div>

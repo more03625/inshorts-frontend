@@ -34,13 +34,13 @@ function Sidebar() {
                             </li>
 
                             <li
-                                className={`border-bottom mb-0 ${pathName === "/admin/add-shorts" ? "active" : ""
+                                className={`border-bottom mb-0 ${pathName === "/admin/add-short" ? "active" : ""
                                     } `}
                             >
                                 <Link className="nav-link-style d-flex align-items-center px-4 py-3"
-                                    to="/admin/add-shorts"
+                                    to="/admin/add-short"
                                 >
-                                    <i className="ci-basket opacity-60 me-2"></i>Add Shorts
+                                    <i className="ci-add-circle opacity-60 me-2"></i>Add Shorts
                                 </Link>
                             </li>
                             <li
@@ -51,8 +51,7 @@ function Sidebar() {
                                     className=" nav-link-style d-flex align-items-center px-4 py-3"
                                     to="/admin/edit-shorts"
                                 >
-                                    <i className="ci-heart opacity-60 me-2"></i>Edit Shorts
-                                    <span className="fs-sm text-muted ms-auto">4</span>
+                                    <i className="ci-edit opacity-60 me-2"></i>Edit Shorts
                                 </Link>
                             </li>
                         </ul>

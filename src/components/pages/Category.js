@@ -19,7 +19,6 @@ function Category() {
     const [size, setSize] = useState(2);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
     const { slug, newsID } = useParams();
-    console.log("baby ===> ", slug)
     const getShortsByCategory = async (page) => {
         if (hasMore === true) {
             setLoading(true);

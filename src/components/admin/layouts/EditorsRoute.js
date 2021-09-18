@@ -8,9 +8,7 @@ const EditorsRoute = (props) => {
 
     useEffect(() => {
         if (getUserToken()) {
-            if (getUserToken().data.role === 1) { // 1 = Admin user // 0 = Normal user
-                history.push("/admin/dashboard");
-            } else {
+            if (getUserToken().data.role !== 1) { // 1 = Admin user // 0 = Normal user
                 history.push("/");
             }
         } else {

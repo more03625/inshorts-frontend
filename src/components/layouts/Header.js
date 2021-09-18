@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthModal from './AuthModal';
 import { Host, Endpoints, getUserToken, logout } from "../../helpers/comman_helper";
+import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
 const Header = () => {
 
@@ -24,6 +25,7 @@ const Header = () => {
         <>
             {/*<body className="toolbar-enabled">*/}
             <AuthModal />
+            <Toaster />
             <main className="page-wrapper">
                 <header className="shadow-sm">
                     <div className="navbar-sticky bg-light">

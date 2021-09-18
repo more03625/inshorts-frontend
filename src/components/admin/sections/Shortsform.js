@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import { Endpoints, Host, convertToBase64, convertToSlug, uppercaseFirstLetter, createReader, getUserToken } from '../../../helpers/comman_helper';
 import axios from 'axios';
 import { status, readAt } from '../../../data/select.json';
+import toast, { Toaster } from 'react-hot-toast';
 const Shortsform = () => {
     const { shortsID } = useParams();
     const requiredWidth = 600;
@@ -16,40 +17,48 @@ const Shortsform = () => {
     const [categories, setCategories] = useState(null);
     const [visitShorts, setVisitShorts] = useState(null);
 
+    const statusRef = useRef();
+    const titleRef = useRef();
+    const descriptionRef = useRef();
+    const summaryRef = useRef();
+    const imgRef = useRef();
+
     const history = useHistory();
     const getCategories = async () => {
         var url = Host + Endpoints.category
         const result = await axios.get(url);
-        console.log();
         if (result.data.error === true) {
-            console.log('There is an error! please refresh page!')
+            toast.success(result.data.error)
         } else {
             setCategories(result.data.data.detail);
-
         }
     }
-
     const handleChange = (e) => {
         setShortsData({ ...shortsData, [e.target.name]: e.target.value }); // USE [] to store dynamic object key // es6 feature
     }
     const isValid = () => {
         if (shortsData === null || shortsData.title === '') {
             setShortsDataError({ title: 'Please add title' });
+            titleRef.current.scrollIntoView();
             return false;
         } else if (shortsData.status === '' || shortsData.status === undefined) {
             setShortsDataError({ status: 'Please select status' });
+            statusRef.current.scrollIntoView();
             return false;
         }
         else if (shortsData.description === '' || shortsData.description === undefined) {
             setShortsDataError({ description: 'Please add description' });
+            descriptionRef.current.scrollIntoView();
             return false;
         }
         else if (shortsData.summary === '' || shortsData.summary === undefined) {
             setShortsDataError({ summary: 'Please add summary' });
+            summaryRef.current.scrollIntoView();
             return false;
         }
         else if (shortsData.image === '' || shortsData.image === undefined) {
             setShortsDataError({ image: 'Please add image' });
+            imgRef.current.scrollIntoView();
             return false;
         }
         else if (shortsData.read_at === '' || shortsData.read_at === undefined) {
@@ -75,32 +84,34 @@ const Shortsform = () => {
             return true;
         }
     }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         if (isValid()) {
             var slug = convertToSlug(shortsData.title);
-            Object.assign(shortsData, { slug: slug });
+            Object.assign(shortsData, { slug: slug, author_id: getUserToken().data._id });
 
             if (shortsData.isImageSelected === undefined) {
                 Object.assign(shortsData, { image: 0 });
             }
-            console.log(shortsData)
-            var url = Host + Endpoints.news
-            const result = shortsID !== undefined ? await axios.put(url, shortsData) : await axios.post(url, shortsData, {
+
+            var url = Host + Endpoints.news;
+            var token = {
                 headers: {
                     token: getUserToken().token
                 }
-            });
+            }
+            const result = shortsID !== undefined ? await axios.put(url, shortsData, token) : await axios.post(url, shortsData, token);
 
             if (result.data.error === false) {
                 setShortsDataError('');
                 setVisitShorts(window.location.host + "/read/" + result.data.data.slug + "/" + result.data.data._id);
                 setTimeout(function () {
-
                     history.push('/admin/edit-shorts');
                 }, 2000);
+                setShortsData(null);
             } else {
                 setShortsDataError({ postShortError: result.data.title });
             }
@@ -131,16 +142,7 @@ const Shortsform = () => {
         })
     }
 
-
-    // const stopWriting = (e) => {
-    //     if (e.target.keyCode == 46 || e.target.keyCode == 8) { // allow backspace & delete buttons
-    //         console.log('In IF');
-    //     } else {
-    //         console.log('In else');
-    //     }
-    // }
     const countWords = (e, str, field) => {
-        console.log(e)
         str = str.replace(/(^\s*)|(\s*$)/gi, "");
         str = str.replace(/[ ]{2,}/gi, " ");
         str = str.replace(/\n /, "\n");
@@ -164,7 +166,7 @@ const Shortsform = () => {
             const url = Host + Endpoints.news + `/${shortsID}`;
             const result = await axios.get(url);
             if (result.data.error === true) {
-                console.log('there are some errors!');
+                toast.error(result.data.title);
             } else {
                 result.data.data === null ? setNotFound(true) : setShortsData(result.data.data); setLoading(false);
             }
@@ -177,6 +179,7 @@ const Shortsform = () => {
     return (
         <>
             <section className="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <Toaster />
                 <div className="pt-2 px-4 ps-lg-0 pe-xl-5">
 
                     {visitShorts &&
@@ -207,6 +210,7 @@ const Shortsform = () => {
                                 name="status"
                                 onChange={(e) => handleChange(e)}
                                 value={shortsData && shortsData.status ? shortsData.status : ""}
+                                ref={statusRef}
                             >
                                 <option value="">Select status</option>
                                 {
@@ -232,6 +236,7 @@ const Shortsform = () => {
                                 name="title"
                                 onKeyPress={(e) => countWords(e, e.target.value, 'title')}
                                 defaultValue={shortsData && shortsData.title}
+                                ref={titleRef}
                             />
                             <div className="form-text">
                                 Total word count: <b>{wordCount.title}</b> words. Words left: <b>{wordCount.defaultTitle - wordCount.title}</b>
@@ -249,6 +254,7 @@ const Shortsform = () => {
                                 name="description"
                                 onKeyPress={(e) => countWords(e, e.target.value, 'description')}
                                 defaultValue={shortsData && shortsData.description}
+                                ref={descriptionRef}
 
                             ></textarea>
                             <div className="form-text">
@@ -268,6 +274,8 @@ const Shortsform = () => {
                                 name="summary"
                                 onKeyPress={(e) => countWords(e, e.target.value, 'summary')}
                                 defaultValue={shortsData && shortsData.summary}
+                                ref={summaryRef}
+
 
                             />
                             <div className="form-text">
@@ -287,6 +295,8 @@ const Shortsform = () => {
                                 name="image"
                                 onChange={(e) => uploadImage(e)}
                                 accept="image/jpeg, image/jpg, image/png, image/webp"
+                                ref={imgRef}
+
 
                             />
                             <div className="form-text">
@@ -349,7 +359,7 @@ const Shortsform = () => {
                                 </label>
                                 <select className="form-select me-2" id="unp-category" name="main_category"
                                     onChange={(e) => handleChange(e)}
-                                    value={shortsData && shortsData.main_category !== '' ? shortsData.main_category : ''}>
+                                    value={shortsData && shortsData.main_category && shortsData.main_category._id}>
                                     <option value="">Select category</option>
                                     {
                                         categories && categories.map((value, index) => (

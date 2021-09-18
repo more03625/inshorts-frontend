@@ -23,15 +23,15 @@ function AuthModal() {
             setSignUpDataError({ email: 'Please enter a valid email!' })
             return false;
         }
-        else if (signUpData.password === '' || signUpData.password === undefined) {
-            setSignUpDataError({ password: 'Password must be greater than 8 and contain at least one uppercase letter, one lowercase letter, and one number' })
+        else if (signUpData.user_password === '' || signUpData.user_password === undefined) {
+            setSignUpDataError({ password: 'Password must be greater than 8 characters!' })
             return false;
         }
         else if (signUpData.confirm_password === '' || signUpData.confirm_password === undefined) {
             setSignUpDataError({ confirm_password: 'Please confirm your password!' })
             return false;
         }
-        else if (signUpData.password !== signUpData.confirm_password) {
+        else if (signUpData.user_password !== signUpData.confirm_password) {
             setSignUpDataError({ confirm_password: 'Passwords are not matching!' })
             return false;
         }
@@ -45,10 +45,21 @@ function AuthModal() {
         if (isValidSignup()) {
             setSignUpDataError('');
             const url = Host + Endpoints.signup;
-            const result = await axios.post(url, signUpData);
-            console.log(result.data.user);
+            try {
+                const result = await axios.post(url, signUpData);
+                if (result.data.error === true) {
+                    toast.error(result.data.title)
+                } else {
+                    document.getElementsByClassName('btn-close')[0].click();
+                    toast.success(result.data.title)
+                }
+            } catch (e) {
+                const { response } = e;
+                // console.log(response.data);
+                toast.error('Something went wrong!');
+            }
+            setLoading({ signUp: false });
         }
-        setLoading({ signUp: false });
     }
     const handleSignInChange = (e) => {
         setSignInData({ ...signInData, [e.target.name]: e.target.value });
@@ -73,15 +84,21 @@ function AuthModal() {
         if (isValidSigIn()) {
             setSignInDataError('');
             const url = Host + Endpoints.login;
-            const result = await axios.post(url, signInData);
-            if (result.data.error === true) {
-                toast.error(result.data.title);
-            } else {
-                document.getElementsByClassName('btn-close')[0].click();
-                toast.success(result.data.title);
-                const { error, title, ...updatedObject } = result.data; // Delete error, title from result.data
-                setSignInData(result.data.data);
-                localStorage.setItem('newsdb-auth', JSON.stringify(updatedObject)); // Convert Object to string
+            try {
+                const result = await axios.post(url, signInData);
+                if (result.data.error === true) {
+                    toast.error(result.data.title);
+                } else {
+                    document.getElementsByClassName('btn-close')[0].click();
+                    toast.success(result.data.title);
+                    const { error, title, ...updatedObject } = result.data; // Delete error, title from result.data
+                    setSignInData(result.data.data);
+                    localStorage.setItem('newsdb-auth', JSON.stringify(updatedObject)); // Convert Object to string
+                }
+            } catch (e) {
+                const { response } = e;
+                // console.log(response.data);
+                toast.error('Something went wrong!');
             }
         }
         setLoading({ signIn: false });
@@ -157,7 +174,7 @@ function AuthModal() {
                                 <div className="mb-3">
                                     <label className="form-label" htmlFor="su-password">Password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="su-password" name="password" placeholder="Enter your password" onChange={(e) => handleSignupChange(e)} />
+                                        <input className="form-control" type="password" id="su-password" name="user_password" placeholder="Enter your password" onChange={(e) => handleSignupChange(e)} />
                                         <div className="text-danger fs-sm">{signUpDataError.password}</div>
 
                                         <label className="password-toggle-btn" aria-label="Show/hide password">

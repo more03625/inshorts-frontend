@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../layouts/Header';
 import Sidebar from '../layouts/Sidebar';
 import Dashboardheader from '../layouts/Dashboardheader';
-
+import DashboardData from '../sections/DashboardData';
 function Dashboard() {
     return (
         <>
@@ -12,6 +12,7 @@ function Dashboard() {
                 <div className="bg-light shadow-lg rounded-3 overflow-hidden">
                     <div className="row">
                         <Sidebar />
+                        <DashboardData />
                     </div>
                 </div>
             </div>

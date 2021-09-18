@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Endpoints, Host } from "../../../helpers/comman_helper";
+import { Endpoints, getUserToken, Host } from "../../../helpers/comman_helper";
 
 const Deletemodal = ({ shortsDetails }) => {
     const [status, setStatus] = useState({ post_status: '' });
@@ -21,9 +21,13 @@ const Deletemodal = ({ shortsDetails }) => {
     }
     const changeStatus = async () => {
         if (isValid()) {
-            var data = Object.assign(shortsDetails, status);
+            var data = Object.assign(shortsDetails, status, { author_id: getUserToken().data._id });
             var url = Host + Endpoints.news;
-            const result = await axios.put(url, data);
+            const result = await axios.put(url, data, {
+                headers: {
+                    token: getUserToken().token
+                }
+            });
             console.log(result);
         } else {
             console.log('I am in else!')

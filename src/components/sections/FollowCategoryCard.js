@@ -8,7 +8,6 @@ const FollowCategoryCard = (props) => {
     var user = authorCardData[0];
     const [followBtn, setFollowBtn] = useState('Follow');
     const [loading, setLoading] = useState(false);
-
     const followAction = async () => {
         setLoading(true);
         var followInfo = {
@@ -36,19 +35,20 @@ const FollowCategoryCard = (props) => {
     return (
         <div className="d-flex flex-wrap justify-content-between align-items-center pb-4 mt-n1 follow-area">
             <div className="d-flex align-items-center fs-sm mb-2">
-                <Link className="blog-entry-meta-link" to={`/author/${user.userName}`}>
+                <Link className="blog-entry-meta-link" to={'#'}>
                     <div className="blog-entry-author-ava">
                         <img className="fit-image" src={Host + user.image} alt={user.name} />
                     </div>{props.slug}
                 </Link>
                 <span className="blog-entry-meta-divider"></span>
-                <a className="blog-entry-meta-link" href="#">Shorts: {props.shorts.length}</a>
+                <Link className="blog-entry-meta-link" to={'#'}>Shorts: {props.shorts.length}</Link>
             </div>
             <div className="fs-sm a mb-2">
                 {
                     getUserToken() === null ? (
-                        <a href="#signin-modal" data-bs-toggle="modal" className="btn btn-primary btn-sm">
-                            Follow <span>{user.followCount}</span>
+                        <a href="#signin-modal" data-bs-toggle="modal" className="btn btn-primary btn-sm" style={{ borderRadius: "25px" }}>
+                            Follow
+                            {/*<span>{user.followCount}</span>*/}
                         </a>
                     ) : (
                         <button className="btn btn-primary btn-sm" onClick={followAction} style={{ borderRadius: "25px" }}>

@@ -1,9 +1,12 @@
+import toast, { Toaster } from 'react-hot-toast';
+import React, { useHistory } from 'react';
+
 export const Host = window.location.host === 'localhost:3000' ? 'http://localhost:5254' : 'https://newsdb-api.herokuapp.com';
 
 export const Endpoints = {
     news: '/news',
     category: '/category',
-    signup: '/api/signup',
+    signup: '/api/register',
     login: '/api/login',
     follow: '/api/user-follow'
 }
@@ -48,5 +51,8 @@ export const getUserToken = () => {
     return JSON.parse(localStorage.getItem('newsdb-auth')); // Convert String to Json Object
 }
 export const logout = () => {
-    localStorage.removeItem('newsdb-auth')
+    toast.success("Logged out successfully!");
+    localStorage.removeItem('newsdb-auth');
+    window.location.href = '/';
+
 }
