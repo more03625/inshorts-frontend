@@ -8,6 +8,7 @@ const FollowCategoryCard = (props) => {
     var user = authorCardData[0];
     const [followBtn, setFollowBtn] = useState('Follow');
     const [loading, setLoading] = useState(false);
+
     const followAction = async () => {
         setLoading(true);
         var followInfo = {
@@ -38,10 +39,10 @@ const FollowCategoryCard = (props) => {
                 <Link className="blog-entry-meta-link" to={`/author/${user.userName}`}>
                     <div className="blog-entry-author-ava">
                         <img className="fit-image" src={Host + user.image} alt={user.name} />
-                    </div>{user.name}
+                    </div>{props.slug}
                 </Link>
                 <span className="blog-entry-meta-divider"></span>
-                <a className="blog-entry-meta-link" href="#">Shorts: {user.shortsCount}</a>
+                <a className="blog-entry-meta-link" href="#">Shorts: {props.shorts.length}</a>
             </div>
             <div className="fs-sm a mb-2">
                 {

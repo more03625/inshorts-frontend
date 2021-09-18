@@ -72,16 +72,24 @@ const Header = () => {
                                     <div className="input-group d-lg-none my-3"><i className="ci-search position-absolute top-50 start-0 translate-middle-y text-muted fs-base ms-3"></i>
                                         <input className="form-control rounded-start" type="text" placeholder="Search for products" />
                                     </div>
-                                    <ul className="navbar-nav">
-                                        <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"><i className="ci-view-grid me-2"></i>Information</a>
+                                    <ul className="navbar-nav navbar-mega-nav pe-lg-2 me-lg-2">
+
+                                        <li className="nav-item dropdown">
+
+                                            <a className="nav-link dropdown-toggle ps-lg-0" href="#" data-bs-toggle="dropdown"><i className="ci-view-grid me-2"></i>Information</a>
                                             <div className="dropdown-menu p-0">
                                                 <div className="d-flex flex-wrap flex-sm-nowrap px-2">
                                                     <div className="mega-dropdown-column pt-1 pt-lg-4 pb-4 px-2 px-lg-3">
                                                         <div className="widget widget-links mb-4">
-                                                            <h6 className="fs-base mb-3">Shop layouts</h6>
                                                             <ul className="widget-list">
                                                                 <li className="widget-list-item">
-                                                                    <Link className="widget-list-link" to={'#'}>Informational</Link>
+                                                                    <Link className="widget-list-link" to={'#'}>About us</Link>
+                                                                </li>
+                                                                <li className="widget-list-item">
+                                                                    <Link className="widget-list-link" to={'#'}>Contact us</Link>
+                                                                </li>
+                                                                <li className="widget-list-item">
+                                                                    <Link className="widget-list-link" to={'#'}>Privacy Policy and Disclaimer</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>

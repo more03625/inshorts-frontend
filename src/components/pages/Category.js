@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useParams } from 'react-router';
 import Loading from '../sections/Loading';
 import FollowCategoryCard from '../sections/FollowCategoryCard';
+import Sharemodal from '../layouts/Sharemodal';
 
 function Category() {
     const [shorts, setShorts] = useState([]);
@@ -18,7 +19,7 @@ function Category() {
     const [size, setSize] = useState(2);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
     const { slug, newsID } = useParams();
-
+    console.log("baby ===> ", slug)
     const getShortsByCategory = async (page) => {
         if (hasMore === true) {
             setLoading(true);
@@ -47,7 +48,7 @@ function Category() {
                     <div className="row pt-5 mt-md-2">
                         <div className="col-lg-3"></div>
                         <div className="col-lg-6">
-                            <FollowCategoryCard id={newsID} />
+                            <FollowCategoryCard id={newsID} shorts={shorts} slug={slug} />
                             {
                                 shorts.map((shortsData, index) => (
                                     <NewsCard key={index} shortsData={shortsData} setShareShort={setShareShort} />
@@ -57,6 +58,7 @@ function Category() {
 
                         </div>
                         <Sidebar />
+                        <Sharemodal shareShort={shareShort} />
                     </div>
                 </div>
             </div>

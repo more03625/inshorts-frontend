@@ -20,7 +20,7 @@ const Read = () => {
     const [notFound, setNotFound] = useState(false);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
     const [similarShorts, setSimilarShorts] = useState([]);
-    // const [mainCategory, setMainCategory] = useState(null);
+    const [mainCategory, setMainCategory] = useState(null);
 
     var categoryName = shorts && shorts.main_category
     // current : newsdID
@@ -33,42 +33,46 @@ const Read = () => {
             if (result.data.error === true) {
                 console.log('there are some errors!');
             } else {
-                // console.log(result.data.data.main_category)
                 getShortsByCategory(result.data.data.main_category.slug)
-                // setMainCategory(result.data.data.main_category.slug);
+                setMainCategory(result.data.data.main_category.slug);
                 setShorts(result.data.data);
-                // result.data.data === null ? setNotFound(true) : (result.data.data.length === 0) ? setHasMore(false) : setShorts(result.data.data); setLoading(false);
             }
         }
     }
     const getShortsByCategory = async (mainCategory) => {
-        console.log("mainCategory ===> ", mainCategory);
-        if (hasMore === true) {
-            setLoading(true);
-            const url = Host + Endpoints.category + `/${mainCategory}?page=${page}&size=${size}`;
-            const result = await axios.get(url);
-            if (result.data.error === true) {
-                console.log('there are some errors!')
+        setLoading(true);
+        if (mainCategory !== undefined) {
+            if (hasMore === true) {
+                const url = Host + Endpoints.category + `/${mainCategory}?page=${page}&size=${size}`;
+                const result = await axios.get(url);
+                if (result.data.error === true) {
+                    console.log('there are some errors!')
+                } else {
+                    console.log(result.data.data.posts.length)
+                    result.data.data.posts.length === 0 ? setHasMore(false) : setSimilarShorts([...similarShorts, ...result.data.data.posts]);
+                }
             } else {
-                result.data.data.posts.length === 0 ? setHasMore(false) : setSimilarShorts([...similarShorts, ...result.data.data.posts]);
-                setLoading(false);
+                console.log('No More');
             }
+        } else {
+            console.log('Main cat is undefined');
         }
+        setLoading(false);
     }
-
-
-
-    useEffect(() => {
-        getShorts();
-    }, [newsID]);
-
 
     useEffect(() => {
         window.scrollTo({
             behavior: "smooth",
             top: 0
         });
-        getShortsByCategory();
+
+        getShorts();
+    }, [newsID]);
+
+    useEffect(() => {
+        if (mainCategory !== null) {
+            getShortsByCategory(mainCategory)
+        }
     }, [page]);
     return (
         <>
@@ -87,7 +91,12 @@ const Read = () => {
                                         <NewsCard shortsData={shorts} setShareShort={setShareShort} />
 
                                         {/*For similar Shorts*/}
-                                        <NewsCard shortsData={similarShorts} setShareShort={setShareShort} />
+
+                                        {
+                                            similarShorts.map((shortsData, index) => (
+                                                <NewsCard key={index} shortsData={shortsData} setShareShort={setShareShort} />
+                                            ))
+                                        }
 
                                         <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />
 
