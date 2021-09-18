@@ -50,7 +50,7 @@ const FollowCategoryCard = (props) => {
                             Follow <span>{user.followCount}</span>
                         </a>
                     ) : (
-                        <button className="btn btn-primary btn-sm" onClick={followAction}>
+                        <button className="btn btn-primary btn-sm" onClick={followAction} style={{ borderRadius: "25px" }}>
                             {followBtn}  {loading === true ? <i className="fs-lg me-2 spinner-border spinner-border-sm" role="status"></i> : ''}
                         </button>
                     )

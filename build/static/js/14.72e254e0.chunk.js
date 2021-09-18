@@ -1,2 +1,0 @@
-(this["webpackJsonpinshorts-frontend"]=this["webpackJsonpinshorts-frontend"]||[]).push([[14],{91:function(n,t,s){"use strict";s.r(t);s(0);var r=s(1);t.default=function(){return Object(r.jsx)("div",{})}}}]);
-//# sourceMappingURL=14.72e254e0.chunk.js.map
