@@ -10,6 +10,7 @@ import axios from "axios";
 import { Host, Endpoints } from "../../helpers/comman_helper";
 import Notfound from "./Notfound";
 import Sharemodal from "../layouts/Sharemodal";
+import toast, { Toaster } from "react-hot-toast";
 const Read = () => {
     const { slug, newsID } = useParams();
     const [page, setPage] = useState(1);
@@ -31,7 +32,7 @@ const Read = () => {
             const url = Host + Endpoints.news + `/${newsID}`;
             const result = await axios.get(url);
             if (result.data.error === true) {
-                console.log('there are some errors!');
+                toast.error(result.data.title);
             } else {
                 getShortsByCategory(result.data.data.main_category.slug)
                 setMainCategory(result.data.data.main_category.slug);
@@ -46,16 +47,11 @@ const Read = () => {
                 const url = Host + Endpoints.category + `/${mainCategory}?page=${page}&size=${size}`;
                 const result = await axios.get(url);
                 if (result.data.error === true) {
-                    console.log('there are some errors!')
+                    toast.error(result.data.title);
                 } else {
-                    console.log(result.data.data.posts.length)
                     result.data.data.posts.length === 0 ? setHasMore(false) : setSimilarShorts([...similarShorts, ...result.data.data.posts]);
                 }
-            } else {
-                console.log('No More');
             }
-        } else {
-            console.log('Main cat is undefined');
         }
         setLoading(false);
     }
@@ -77,6 +73,7 @@ const Read = () => {
     return (
         <>
             <Header />
+            <Toaster />
             <Breadcrumb page='read' title={shorts && shorts.title} />
             <div className="container-fluid pb-5 mb-2 mb-md-4">
                 <div className="container-fluid">

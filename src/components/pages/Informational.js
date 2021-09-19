@@ -5,8 +5,6 @@ import Breadcrumb from "../layouts/Breadcrumb";
 import { useParams } from "react-router-dom";
 const Read = () => {
     const { slug, newsID } = useParams();
-    console.log(slug)
-    console.log(newsID)
     return (
         <>
             <Header />

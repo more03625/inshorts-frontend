@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { logout } from '../../../helpers/comman_helper';
 function Sidebar() {
     var pathName = window.location.pathname;
 
@@ -52,6 +53,17 @@ function Sidebar() {
                                     to="/admin/edit-shorts"
                                 >
                                     <i className="ci-edit opacity-60 me-2"></i>Edit Shorts
+                                </Link>
+                            </li>
+
+                            <li
+                                className={'border-bottom mb-0'} onClick={logout}
+                            >
+                                <Link
+                                    className=" nav-link-style d-flex align-items-center px-4 py-3"
+                                    to="/admin/edit-shorts"
+                                >
+                                    <i className="ci-arrow-right-circle opacity-60 me-2 opacity-60 me-2"></i>Logout
                                 </Link>
                             </li>
                         </ul>

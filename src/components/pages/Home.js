@@ -7,8 +7,7 @@ import { Host, Endpoints } from "../../helpers/comman_helper";
 import axios from "axios";
 import Loading from "../sections/Loading";
 import Sharemodal from '../layouts/Sharemodal';
-import toast from 'react-hot-toast';
-
+import toast, { Toaster } from 'react-hot-toast';
 const Home = () => {
 
     const [shorts, setShorts] = useState([]);
@@ -25,7 +24,7 @@ const Home = () => {
             try {
                 const result = await axios.get(url);
                 if (result.data.error === true) {
-                    console.log('there are some errors!')
+                    toast.error(result.data.title);
                 } else {
                     result.data.data.detail.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.detail]);
                     setLoading(false);
@@ -45,6 +44,7 @@ const Home = () => {
     return (
         <>
             <Header />
+            <Toaster />
             {/*<Breadcrumb />*/}
             <div className="container-fluid pb-5 mb-2 mb-md-4">
                 <div className="container-fluid">

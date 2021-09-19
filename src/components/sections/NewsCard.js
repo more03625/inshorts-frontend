@@ -31,11 +31,14 @@ const NewsCard = ({ shortsData, setShareShort }) => {
               </Link>
             </h2>
             <p className="news-additional-info" title={shortsData.title}>
-              Shorts by{" "}
+              <span className="ci-eye"></span> {shortsData.hits} Hits |
+              {/* Shorts by*/}{" "}
               <span>
-                <Link className="me-2 mb-2" to={`/author/${shortsData.author_id && shortsData.author_id._id}`}>
-                  {shortsData.author_id && shortsData.author_id.name}
-                </Link>
+                {
+                  //   <Link className="me-2 mb-2" to={`/author/${shortsData.author_id && shortsData.author_id._id}`}>
+                  //   {shortsData.author_id && shortsData.author_id.name}
+                  // </Link>
+                }
                 {
                   new Date(shortsData.createdAt).toDateString()
                 }

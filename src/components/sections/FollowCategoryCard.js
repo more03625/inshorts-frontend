@@ -4,6 +4,7 @@ import { Endpoints, getUserToken, Host } from "../../helpers/comman_helper";
 import '../../assets/css/custom.css'
 import { Link } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 const FollowCategoryCard = (props) => {
     var user = authorCardData[0];
     const [followBtn, setFollowBtn] = useState('Follow');
@@ -21,7 +22,7 @@ const FollowCategoryCard = (props) => {
             }
         });
         if (result.data.error === true) {
-            console.log('Please reload the app!')
+            toast.error(result.data.title);
         } else {
             if (result.data.title === 'followed') {
                 setFollowBtn('Following');
@@ -34,6 +35,7 @@ const FollowCategoryCard = (props) => {
 
     return (
         <div className="d-flex flex-wrap justify-content-between align-items-center pb-4 mt-n1 follow-area">
+            <Toaster />
             <div className="d-flex align-items-center fs-sm mb-2">
                 <Link className="blog-entry-meta-link" to={'#'}>
                     <div className="blog-entry-author-ava">

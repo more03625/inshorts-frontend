@@ -10,7 +10,7 @@ import { useParams } from 'react-router';
 import Loading from '../sections/Loading';
 import FollowCategoryCard from '../sections/FollowCategoryCard';
 import Sharemodal from '../layouts/Sharemodal';
-
+import toast, { Toaster } from "react-hot-toast";
 function Category() {
     const [shorts, setShorts] = useState([]);
     const [page, setPage] = useState(1);
@@ -26,7 +26,7 @@ function Category() {
             const result = await axios.get(url);
 
             if (result.data.error === true) {
-                console.log('there are some errors!')
+                toast.error(result.data.title);
             } else {
                 result.data.data.posts.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
                 setLoading(false);
@@ -41,6 +41,7 @@ function Category() {
     return (
         <>
             <Header />
+            <Toaster />
             <Breadcrumb page="category" title={slug} />
             <div className="container-fluid pb-5 mb-2 mb-md-4">
                 <div className="container-fluid">
@@ -54,7 +55,6 @@ function Category() {
                                 ))
                             }
                             <Loading loading={loading} hasMore={hasMore} setPage={setPage} page={page} />
-
                         </div>
                         <Sidebar />
                         <Sharemodal shareShort={shareShort} />

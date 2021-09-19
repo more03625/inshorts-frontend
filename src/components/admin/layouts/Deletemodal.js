@@ -28,9 +28,6 @@ const Deletemodal = ({ shortsDetails }) => {
                     token: getUserToken().token
                 }
             });
-            console.log(result);
-        } else {
-            console.log('I am in else!')
         }
     }
     return (

@@ -27,7 +27,7 @@ function Shorts() {
             if (result.data.error === true) {
                 toast.error(result.data.title);
             } else {
-                console.log(result.data.data.detail);
+
                 result.data.data.detail.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.detail]); setLoading(false);
             }
             setLoading(false);
@@ -36,10 +36,7 @@ function Shorts() {
     const getShortsDataByID = (index) => {
         setShortsDetails(shorts[index]);
     }
-    const redirectToView = (slug, newsID) => {
-        // console.log(window.location.host + `/read/${slug}/${newsID}`);
-        window.open(window.location.host + `/read/${slug}/${newsID}`)
-    }
+
     useEffect(() => {
         getShorts(page, size);
     }, [page]);

@@ -55,8 +55,9 @@ const Header = () => {
                                                         Logout
                                                     </div>
                                                 </a>
-                                                <Link to={'/admin/dashboard'} className="btn btn-primary btn-sm mx-3">Add Shorts</Link>
-
+                                                {
+                                                    getUserToken() !== null && getUserToken().data.role === 1 ? <Link to={'/admin/dashboard'} className="btn btn-primary btn-sm mx-3">Add Shorts</Link> : ''
+                                                }
                                             </>
 
                                         ) : (
@@ -73,8 +74,6 @@ const Header = () => {
                                             </>
                                         )
                                     }
-
-
                                 </div>
                             </div>
                         </div>

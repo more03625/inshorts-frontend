@@ -110,7 +110,7 @@ const Shortsform = () => {
                 setVisitShorts(window.location.host + "/read/" + result.data.data.slug + "/" + result.data.data._id);
                 setTimeout(function () {
                     history.push('/admin/edit-shorts');
-                }, 2000);
+                }, 1000);
                 setShortsData(null);
             } else {
                 setShortsDataError({ postShortError: result.data.title });
@@ -146,18 +146,15 @@ const Shortsform = () => {
         str = str.replace(/(^\s*)|(\s*$)/gi, "");
         str = str.replace(/[ ]{2,}/gi, " ");
         str = str.replace(/\n /, "\n");
-
         if (field === 'title' && str.split(' ').length >= wordCount.defaultTitle) {
             e.preventDefault();
         } else if (field === 'description' && str.split(' ').length >= wordCount.defaultDescription) {
             e.preventDefault();
-
         } else if (field === 'summary' && str.split(' ').length >= wordCount.defaultSummary) {
             e.preventDefault();
         }
 
         field === 'title' ? setWordCount({ ...wordCount, title: str.split(' ').length }) : field === 'description' ? setWordCount({ ...wordCount, description: str.split(' ').length }) : setWordCount({ ...wordCount, summary: str.split(' ').length });
-
         setShortsData({ ...shortsData, [field]: str }); // USE [] to store dynamic object key // es6 feature
     }
     const getShortsByID = async () => {

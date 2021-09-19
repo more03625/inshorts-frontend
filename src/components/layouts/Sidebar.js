@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Host, convertToSlug, Endpoints, uppercaseFirstLetter } from "../../helpers/comman_helper";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
+import toast, { Toaster } from "react-hot-toast";
 const Sidebar = () => {
 
     const [subcategories, setSubcategories] = useState([]);
@@ -21,7 +21,8 @@ const Sidebar = () => {
         var url = Host + Endpoints.news + `/trending/news?page=1&size=3`;
         const result = await axios.get(url);
         if (result.data.error === true) {
-            console.log('Please reload the app!')
+
+            toast.error(result.data.title);
         } else {
             setTrending(result.data.data.detail)
         }
@@ -32,6 +33,7 @@ const Sidebar = () => {
     }, [])
     return (
         <aside className="col-lg-3">
+            <Toaster />
             <div className="offcanvas offcanvas-collapse offcanvas-end border-start ms-lg-auto" id="blog-sidebar" style={{ maxWidth: "22rem" }}>
                 <div className="offcanvas-header align-items-center shadow-sm">
                     <h2 className="h5 mb-0">Sidebar</h2>
