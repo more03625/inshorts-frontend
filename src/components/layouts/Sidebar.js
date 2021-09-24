@@ -7,6 +7,7 @@ const Sidebar = () => {
 
     const [subcategories, setSubcategories] = useState([]);
     const [trending, setTrending] = useState([]);
+    var internalUtmSource = window.location.pathname.split("/")[1] === '' ? 'home' : window.location.pathname.split("/")[1];
 
     const getCategoryWithNewsCount = async () => {
         const url = Host + Endpoints.category + "/" + "allList";
@@ -60,9 +61,9 @@ const Sidebar = () => {
                         <h3 className="widget-title">Trending posts</h3>
                         {
                             trending && trending.slice(0, 3).map((value, index) => (
-                                <Link key={index} className="flex-shrink-0" to={"/read/" + convertToSlug(value.title) + "/" + value._id}>
+                                <Link key={index} className="flex-shrink-0" to={"/read/" + convertToSlug(value.title) + "/" + value._id + "?utm_source=" + internalUtmSource}>
                                     <div className="d-flex align-items-center mb-3">
-                                        <img className="rounded" src={Host + value.image} width="64" alt="Post image" />
+                                        <img className="rounded" src={value.image} width="64" alt="Post image" />
                                         <div className="ps-3">
                                             <h6 className="blog-entry-title fs-sm mb-0">
                                                 {value.title.slice(0, 44) + "..."}

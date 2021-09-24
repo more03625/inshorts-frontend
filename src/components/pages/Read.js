@@ -4,13 +4,14 @@ import Sidebar from "../layouts/Sidebar";
 import Footer from "../layouts/Footer";
 import Breadcrumb from "../layouts/Breadcrumb";
 import NewsCard from "../sections/NewsCard";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Loading from "../sections/Loading";
 import axios from "axios";
 import { Host, Endpoints } from "../../helpers/comman_helper";
 import Notfound from "./Notfound";
 import Sharemodal from "../layouts/Sharemodal";
 import toast, { Toaster } from "react-hot-toast";
+
 const Read = () => {
     const { slug, newsID } = useParams();
     const [page, setPage] = useState(1);
@@ -55,8 +56,9 @@ const Read = () => {
         }
         setLoading(false);
     }
-
+    console.log(newsID)
     useEffect(() => {
+
         window.scrollTo({
             behavior: "smooth",
             top: 0

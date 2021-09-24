@@ -4,7 +4,7 @@ import { convertToSlug, Host } from "../../helpers/comman_helper";
 import toast, { Toaster } from "react-hot-toast";
 
 const NewsCard = ({ shortsData, setShareShort }) => {
-
+  var internalUtmSource = window.location.pathname.split("/")[1] === '' ? 'home' : window.location.pathname.split("/")[1];
   return (
     <>
       <article className="masonry-grid-item">
@@ -12,7 +12,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
           <Toaster />
           <img
             className="card-img-top"
-            src={`${Host + shortsData.image}`}
+            src={`${shortsData.image}`}
             alt="Post"
           />
           <div className="card-body">
@@ -23,7 +23,7 @@ const NewsCard = ({ shortsData, setShareShort }) => {
                     ? "/read/" +
                     convertToSlug(shortsData.title) +
                     "/" +
-                    shortsData._id
+                    shortsData._id + "?utm_source=" + internalUtmSource
                     : ""
                 }
               >

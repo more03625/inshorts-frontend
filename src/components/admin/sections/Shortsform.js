@@ -143,9 +143,7 @@ const Shortsform = () => {
     }
 
     const countWords = (e, str, field) => {
-        str = str.replace(/(^\s*)|(\s*$)/gi, "");
-        str = str.replace(/[ ]{2,}/gi, " ");
-        str = str.replace(/\n /, "\n");
+
         if (field === 'title' && str.split(' ').length >= wordCount.defaultTitle) {
             e.preventDefault();
         } else if (field === 'description' && str.split(' ').length >= wordCount.defaultDescription) {
@@ -297,7 +295,7 @@ const Shortsform = () => {
 
                             />
                             <div className="form-text">
-                                Use <Link to={{ pathname: 'https://tinypng.com/' }}>Tinypng</Link> or <Link to={{ pathname: 'https://compressimage.toolur.com/' }}>Toolur</Link> to compress images. it should be less than 50KB & Dimensions should be 600 * 358
+                                <a target="_blank" href="https://www.newsdb.in/">Download image</a> OR. Use <Link to={{ pathname: 'https://tinypng.com/' }}>Tinypng</Link> or <Link to={{ pathname: 'https://compressimage.toolur.com/' }}>Toolur</Link> to compress images. it should be less than 50KB & Dimensions should be 600 * 358
                             </div>
                             <p className="text-danger fs-md">{shortsDataError.image}</p>
 
