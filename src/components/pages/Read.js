@@ -56,7 +56,7 @@ const Read = () => {
         }
         setLoading(false);
     }
-    console.log(newsID)
+
     useEffect(() => {
 
         window.scrollTo({

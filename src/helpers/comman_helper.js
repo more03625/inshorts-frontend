@@ -1,7 +1,7 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useHistory } from 'react';
 
-export const Host = window.location.host === 'localhost:3000' ? 'https://newsdb-api.herokuapp.com' : 'http://localhost:5254';
+export const Host = window.location.host === 'localhost:3000' ? 'http://localhost:5254' : 'https://newsdb-api.herokuapp.com';
 
 export const Endpoints = {
     news: '/news',
