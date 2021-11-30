@@ -18,25 +18,27 @@ export default function DashboardData() {
             if (result.data.error === true) {
                 toast.success(result.data.error)
             } else {
+                console.log("dashboardData ===> ", dashboardData)
                 setDashboardData(result.data.data);
             }
         } catch (error) {
             toast.error('Something went wrong!')
         }
     }
-    var postsCount = [];
-    var usersCount = [];
-
+    var stats = [];
+    console.log("dashboardData ===> ", dashboardData)
     dashboardData.posts && dashboardData.posts.map((value, index) => (
-        postsCount.push({ [value._id]: value.count })
+            stats.push({ [value._id]: value.count })
     ));
 
     dashboardData.posts && dashboardData.users.map((value, index) => (
-        usersCount.push({ [value._id]: value.count })
+        stats.push({ [value._id]: value.count })
     ));
+
     useEffect(() => {
         getDashboardData();
     }, []);
+    console.log("stats ===> ", stats)
 
     return (
         <>
@@ -48,21 +50,21 @@ export default function DashboardData() {
                         <div class="col-md-4 col-sm-6 px-2 mb-4">
                             <div class="bg-secondary h-100 rounded-3 p-4 text-center">
                                 <h3 class="fs-sm text-muted">Active Shorts</h3>
-                                <p class="h2 mb-2">{postsCount[1] !== undefined && postsCount[1] !== '' ? postsCount[1].publish : ''}</p>
+                                <p class="h2 mb-2">{stats[1] !== undefined && stats[1] !== '' ? stats[1].publish : ''}</p>
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-6 px-2 mb-4">
                             <div class="bg-secondary h-100 rounded-3 p-4 text-center">
                                 <h3 class="fs-sm text-muted">Draft Shorts</h3>
-                                <p class="h2 mb-2">{postsCount[0] !== undefined && postsCount[0] !== '' ? postsCount[0].draft : ''}</p>
+                                <p class="h2 mb-2">{stats[0] !== undefined && stats[0] !== '' ? stats[0].draft : ''}</p>
                             </div>
                         </div>
 
                         <div class="col-md-4 col-sm-12 px-2 mb-4">
                             <div class="bg-secondary h-100 rounded-3 p-4 text-center">
                                 <h3 class="fs-sm text-muted">In Active users</h3>
-                                {/*<p class="h2 mb-2">{usersCount[0] !== undefined && usersCount[0] !== '' ? usersCount[0].in - active : ''}</p>*/}
+                                {/*<p class="h2 mb-2">{stats[0] !== undefined && stats[0] !== '' ? stats[0].in - active : ''}</p>*/}
                                 <p class="h2 mb-2">4</p>
                             </div>
                         </div>
@@ -70,7 +72,7 @@ export default function DashboardData() {
                         <div class="col-md-4 col-sm-6 px-2 mb-4">
                             <div class="bg-secondary h-100 rounded-3 p-4 text-center">
                                 <h3 class="fs-sm text-muted">Active users</h3>
-                                <p class="h2 mb-2">{usersCount[1] !== undefined && usersCount[1] !== '' ? usersCount[1].active : ''}</p>
+                                <p class="h2 mb-2">{stats[1] !== undefined && stats[1] !== '' ? stats[1].active : ''}</p>
                             </div>
                         </div>
                     </div>

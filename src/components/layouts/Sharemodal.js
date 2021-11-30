@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import Shorts from "../admin/sections/shorts/Shortslist";
 
 const Sharemodal = ({ shareShort }) => {
 
@@ -13,7 +12,7 @@ const Sharemodal = ({ shareShort }) => {
     }, 3000);
   }
 
-  var shortsURL = window.location.host + "/read/" + shareShort.shareSlug + "/" + shareShort.shareID;
+  var shortsURL = window.location.protocol + "//" +window.location.host + "/read/" + shareShort.shareSlug + "/" + shareShort.shareID;
 
   return (
     <>

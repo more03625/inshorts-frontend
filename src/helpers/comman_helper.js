@@ -1,7 +1,8 @@
 import toast, { Toaster } from 'react-hot-toast';
 import React, { useHistory } from 'react';
 
-export const Host = window.location.host === 'localhost:3000' ? 'http://localhost:5254' : 'https://newsdb-api.herokuapp.com';
+// export const Host = window.location.host === 'localhost:3000' ? 'http://localhost:5254' : 'https://newsdb-api.herokuapp.com';
+export const Host = window.location.host === 'localhost:3000' ? 'https://newsdb-api.herokuapp.com' : 'https://newsdb-api.herokuapp.com';
 
 export const Endpoints = {
     news: '/news',
@@ -55,5 +56,26 @@ export const logout = () => {
     toast.success("Logged out successfully!");
     localStorage.removeItem('newsdb-auth');
     window.location.href = '/';
-
+}
+export const togglePassword = (inputID) => {
+    let x = document.getElementById(inputID);
+    console.log('x.type ===> ', x)
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+    x.classList.toggle('fa-eye-slash')
+    // <i class="far fa-eye-slash"></i>
+    // <i class="far fa-eye"></i>
+}
+export const webErrors = {
+    unSupportedFileError: 'Only PDF, JPG, PNG, DOC allowed!',
+    inValidPhoneNumberError: 'Please enter a 10 digit valid phone number!',
+    inValidEmailError: 'Please enter a valid email address!',
+    invalidPasswordError: 'Password should be of minimum 8 characters!',
+    passwordMismatch: 'Both password should match',
+    enterCurrentPassword: 'Please enter your current password',
+    currentPasswordSameAsNewPassword: 'New password should not be a old password!',
+    catchError: 'Something went wrong, Please try again!'
 }

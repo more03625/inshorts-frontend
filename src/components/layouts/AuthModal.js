@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Host, Endpoints } from '../../helpers/comman_helper';
+import { Host, Endpoints, togglePassword } from '../../helpers/comman_helper';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -7,7 +7,7 @@ function AuthModal({ setIsLoggedIn }) {
     const [signUpData, setSignUpData] = useState(null);
     const [signUpDataError, setSignUpDataError] = useState({});
     const [loading, setLoading] = useState({ signIn: false, signUp: false });
-    const [signInData, setSignInData] = useState(null);
+    const [signInData, setSignInData] = useState({email: 'rahulmore@gmail.com', user_password: '123456789'});
     const [signInDataError, setSignInDataError] = useState({});
 
 
@@ -17,18 +17,18 @@ function AuthModal({ setIsLoggedIn }) {
     const isValidSignup = () => {
         var emailValidator = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(signUpData && signUpData.email);
 
-        if (signUpData === null || signUpData.name === '' || signUpData === undefined) {
+        if (signUpData === null || !signUpData.name) {
             setSignUpDataError({ name: 'Please enter your name!' })
             return false;
-        } else if (signUpData.email === '' || signUpData.email === undefined || !emailValidator) {
+        } else if (!signUpData.email) {
             setSignUpDataError({ email: 'Please enter a valid email!' })
             return false;
         }
-        else if (signUpData.user_password === '' || signUpData.user_password === undefined) {
+        else if (!signUpData.user_password) {
             setSignUpDataError({ password: 'Password must be greater than 8 characters!' })
             return false;
         }
-        else if (signUpData.confirm_password === '' || signUpData.confirm_password === undefined) {
+        else if (!signUpData.confirm_password) {
             setSignUpDataError({ confirm_password: 'Please confirm your password!' })
             return false;
         }
@@ -59,8 +59,8 @@ function AuthModal({ setIsLoggedIn }) {
                 // console.log(response.data);
                 toast.error('Something went wrong!');
             }
-            setLoading({ signUp: false });
         }
+        setLoading({ signUp: false });
     }
     const handleSignInChange = (e) => {
         setSignInData({ ...signInData, [e.target.name]: e.target.value });
@@ -146,10 +146,7 @@ function AuthModal({ setIsLoggedIn }) {
                                     <label className="form-label" htmlFor="si-password">Password</label>
                                     <div className="password-toggle">
                                         <input className="form-control" type="password" id="si-password" name="user_password" placeholder="Enter your password" value={signInData && signInData.user_password} onChange={(e) => handleSignInChange(e)} />
-                                        <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" />
-                                            <span className="password-toggle-indicator"></span>
-                                        </label>
+                                        
                                         <div className="text-danger">{signInDataError.password}</div>
                                     </div>
                                 </div>
@@ -189,15 +186,10 @@ function AuthModal({ setIsLoggedIn }) {
                                     <div className="text-danger">{signUpDataError.email}</div>
                                 </div>
                                 <div className="mb-3">
-                                    <label className="form-label" htmlFor="su-password">Password</label>
+                                    <label className="form-label" htmlFor="user_password">Password</label>
                                     <div className="password-toggle">
-                                        <input className="form-control" type="password" id="su-password" name="user_password" placeholder="Enter your password" onChange={(e) => handleSignupChange(e)} />
+                                        <input className="form-control" type="password" id="user_password_signin" name="user_password" placeholder="Enter your password a" onChange={(e) => handleSignupChange(e)} />
                                         <div className="text-danger fs-sm">{signUpDataError.password}</div>
-
-                                        <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" />
-                                            <span className="password-toggle-indicator"></span>
-                                        </label>
                                     </div>
                                 </div>
                                 <div className="mb-3">
@@ -206,9 +198,7 @@ function AuthModal({ setIsLoggedIn }) {
                                         <input className="form-control" type="password" id="su-password-confirm" name="confirm_password" placeholder="Confirm your password" onChange={(e) => handleSignupChange(e)} />
                                         <div className="text-danger">{signUpDataError.confirm_password}</div>
 
-                                        <label className="password-toggle-btn" aria-label="Show/hide password">
-                                            <input className="password-toggle-check" type="checkbox" /><span className="password-toggle-indicator"></span>
-                                        </label>
+                                      
                                     </div>
                                 </div>
                                 <button className="btn btn-primary btn-shadow d-block w-100" type="submit" disabled={loading.signUp}>Sign up

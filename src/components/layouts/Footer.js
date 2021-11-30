@@ -5,11 +5,11 @@ const Footer = () => {
     return (
         <>
             <footer className="footer bg-dark pt-5">
-                <div className="container">
+                {/* <div className="container">
                     <div className="row pb-2">
                         <div className="col-md-4 col-sm-6">
                             <div className="widget widget-links widget-light pb-2 mb-4">
-                                <h3 className="widget-title text-light">Shop departments</h3>
+                                <h3 className="widget-title text-light">Information</h3>
                                 <ul className="widget-list">
                                     <li className="widget-list-item">
                                         <Link className="widget-list-link" target="_blank" to={{ pathname: 'https://www.newsdb.in/about-us' }}>About us</Link>
@@ -21,7 +21,7 @@ const Footer = () => {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
                 <div className="pt-5 bg-darker">
                     <div className="container">
                         <hr className="hr-light mb-5" />
@@ -35,9 +35,9 @@ const Footer = () => {
                             </div>
                             <div className="col-md-6 text-center text-md-end mb-4">
                                 <div className="mb-3">
-                                    <a className="btn-social bs-light bs-facebook ms-2 mb-2" href="https://www.facebook.com/newsdb.in"><i className="ci-facebook"></i></a>
-                                    <a className="btn-social bs-light bs-instagram ms-2 mb-2" href="http://instagram.com/newsdb.in"><i className="ci-instagram"></i></a>
-                                    <a className="btn-social bs-light bs-pinterest ms-2 mb-2" href="https://in.pinterest.com/newsdbindia"><i className="ci-pinterest"></i></a>
+                                    <a className="btn-social bs-light bs-facebook ms-2 mb-2"  target="_blank" href="https://www.facebook.com/newsdb.in"><i className="ci-facebook"></i></a>
+                                    <a className="btn-social bs-light bs-instagram ms-2 mb-2" target="_blank" href="http://instagram.com/newsdb.in"><i className="ci-instagram"></i></a>
+                                    <a className="btn-social bs-light bs-pinterest ms-2 mb-2" target="_blank" href="https://in.pinterest.com/newsdbindia"><i className="ci-pinterest"></i></a>
                                 </div>
 
                             </div>

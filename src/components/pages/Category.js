@@ -4,13 +4,14 @@ import Breadcrumb from '../layouts/Breadcrumb';
 import Sidebar from '../layouts/Sidebar';
 import Footer from '../layouts/Footer';
 import NewsCard from '../sections/NewsCard';
-import { Host, Endpoints } from '../../helpers/comman_helper';
+import { Host, Endpoints, webErrors } from '../../helpers/comman_helper';
 import axios from 'axios';
 import { useParams } from 'react-router';
 import Loading from '../sections/Loading';
 import FollowCategoryCard from '../sections/FollowCategoryCard';
 import Sharemodal from '../layouts/Sharemodal';
 import toast, { Toaster } from "react-hot-toast";
+
 function Category() {
     const [shorts, setShorts] = useState([]);
     const [page, setPage] = useState(1);
@@ -19,24 +20,35 @@ function Category() {
     const [size, setSize] = useState(2);
     const [shareShort, setShareShort] = useState({ shareID: 0, shareSlug: null });
     const { slug, newsID } = useParams();
-    const getShortsByCategory = async (page) => {
-        if (hasMore === true) {
-            setLoading(true);
-            const url = Host + Endpoints.category + `/${slug}?page=${page}&size=${size}`;
-            const result = await axios.get(url);
 
-            if (result.data.error === true) {
-                toast.error(result.data.title);
-            } else {
-                result.data.data.posts.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
-                setLoading(false);
-            }
+    const getShortsByCategory = async (page) => {
+        try {
+            // if (hasMore === true) {
+                setLoading(true);
+                console.log("slug ===> ", slug)
+                const url = Host + Endpoints.category + `/${slug}?page=${page}&size=${size}`;
+                const result = await axios.get(url);
+
+                if (result.data.error === true) {
+                    toast.error(result.data.title);
+                } else {
+                    result.data.data.posts.length === 0 ? setHasMore(false) : setShorts([...shorts, ...result.data.data.posts]);
+                    setLoading(false);
+                }
+            // }
+        } catch (err) {
+            toast.error(webErrors.catchError);
         }
     }
-
+  
     useEffect(() => {
         getShortsByCategory(page);
-    }, [newsID, page]);
+        return () => {
+            setShorts([])
+        }
+    }, [newsID, page, slug]);
+
+
 
     return (
         <>
