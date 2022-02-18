@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from '../../assets/images/news-db-pc-light-logo.png'
 import { Link } from "react-router-dom";
+import { appVersion } from "../../helpers/comman_helper";
 const Footer = () => {
     return (
         <>
@@ -40,11 +41,16 @@ const Footer = () => {
                                     <a className="btn-social bs-light bs-pinterest ms-2 mb-2" target="_blank" href="https://in.pinterest.com/newsdbindia"><i className="ci-pinterest"></i></a>
                                 </div>
 
+                                <div className="row pb-2">
+                            <div className="pb-4 fs-xs text-light opacity-50">App version {appVersion}</div>
+                        </div>
+                             
                             </div>
                         </div>
                         <div className="row pb-2">
                             <div className="pb-4 fs-xs text-light opacity-50 text-center text-md-start">© All rights reserved. Made by <a className="text-light" href="https://github.com/more03625" target="_blank" rel="noopener">Rahul More</a></div>
                         </div>
+                        
                     </div>
                 </div>
             </footer>
