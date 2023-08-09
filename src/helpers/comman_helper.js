@@ -1,7 +1,6 @@
-import toast, { Toaster } from 'react-hot-toast';
-import React, { useHistory } from 'react';
+import toast from 'react-hot-toast';
 
-export const Host = window.location.host === 'reactjs-newsdb.netlify.app' ? 'https://newsdb-node.herokuapp.com' : 'http://localhost:5254';
+export const Host = window.location.host === 'reactjs-newsdb.netlify.app' ? 'http://inshorts-backend-env-2.eba-f92mnyih.ap-south-1.elasticbeanstalk.com' : 'http://localhost:5254';
 export const appVersion = 1.1
 export const Endpoints = {
     news: '/news',

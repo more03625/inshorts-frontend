@@ -9,6 +9,7 @@ const FollowCategoryCard = (props) => {
     var user = authorCardData[0];
     const [followBtn, setFollowBtn] = useState('Follow');
     const [loading, setLoading] = useState(false);
+
     const followAction = async () => {
         setLoading(true);
         var followInfo = {
@@ -24,7 +25,7 @@ const FollowCategoryCard = (props) => {
         if (result.data.error === true) {
             toast.error(result.data.title);
         } else {
-            if (result.data.title === 'followed') {
+            if (result.data.title === 'follow Successfully!') {
                 setFollowBtn('Following');
             } else {
                 setFollowBtn('Follow');
@@ -53,7 +54,7 @@ const FollowCategoryCard = (props) => {
                             {/*<span>{user.followCount}</span>*/}
                         </a>
                     ) : (
-                        <button className="btn btn-primary btn-sm" onClick={followAction} style={{ borderRadius: "25px" }}>
+                        <button className="btn btn-primary btn-sm" onClick={() => followAction()} style={{ borderRadius: "25px" }}>
                             {followBtn}  {loading === true ? <i className="fs-lg me-2 spinner-border spinner-border-sm" role="status"></i> : ''}
                         </button>
                     )

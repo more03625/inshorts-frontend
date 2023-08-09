@@ -15,7 +15,6 @@ function AuthModal({ setIsLoggedIn }) {
         setSignUpData({ ...signUpData, [e.target.name]: e.target.value });
     }
     const isValidSignup = () => {
-        var emailValidator = new RegExp(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}/g).test(signUpData && signUpData.email);
 
         if (signUpData === null || !signUpData.name) {
             setSignUpDataError({ name: 'Please enter your name!' })
